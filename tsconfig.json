@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/chakra-ui/*": ["./src/components/chakra-ui/*"],
+      "@/components/*": ["./src/components/*"],
       "@/*": ["./src/*"]
     }
   },
