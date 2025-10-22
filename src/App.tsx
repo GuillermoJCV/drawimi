@@ -1,11 +1,14 @@
-import { Container } from "@chakra-ui/react";
+import { Container, HStack } from "@chakra-ui/react";
 import SideBar from "@/components/side-bar/sidebar";
+import CanvasPaint from "@/components/canvas/canvas";
 
 function App() {
   return (
-    <Container as="main" w="dvw" h="dvh" p="0">
-      <SideBar></SideBar>
-      <Container></Container>
+    <Container as="main" maxW="dvw" maxH="dvh">
+      <HStack>
+        <SideBar />
+        <CanvasPaint />
+      </HStack>
     </Container>
   );
 }
