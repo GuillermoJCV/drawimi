@@ -17,9 +17,11 @@ function PixiContainer() {
 
   useEffect(() => {
     canvas.addEventListener("pointerdown", pointerdownHandler);
+    canvas.addEventListener("pointerup", pointerupDepsInjection);
 
     return () => {
       canvas.removeEventListener("pointerdown", pointerdownHandler);
+      canvas.removeEventListener("pointerup", pointerupDepsInjection);
     };
   }, [graphics]);
 
@@ -28,7 +30,16 @@ function PixiContainer() {
     initialX = e.clientX - x;
     initialY = e.clientY - y;
     drawHandler(graphics, initialX, initialY);
+    canvas.addEventListener("pointermove", pointermoveDepsInjection);
   };
+  const pointerupHandler = (_: PointerEvent, canvas: HTMLCanvasElement) =>
+    canvas.removeEventListener("pointermove", pointermoveDepsInjection);
+
+  /* Injections */
+  const pointermoveDepsInjection = (e: PointerEvent) =>
+    pointermoveHandler(e, graphics, canvas);
+  const pointerupDepsInjection = (e: PointerEvent) =>
+    pointerupHandler(e, canvas);
 
   const storeGraphics = useCallback((g: PixiGraphics) => setGraphics(g), []);
   return (
@@ -39,10 +50,11 @@ function PixiContainer() {
 }
 
 const drawHandler = (
-  graphics: PixiGraphics,
+  graphics: PixiGraphics | null,
   cursorX: number,
   cursorY: number,
 ) => {
+  if (!graphics) return;
   graphics
     .moveTo(initialX, initialY)
     .lineTo(cursorX + 1, cursorY + 1)
@@ -53,6 +65,16 @@ const drawHandler = (
     });
   initialX = cursorX;
   initialY = cursorY;
+};
+
+const pointermoveHandler = (
+  e: PointerEvent,
+  graphics: PixiGraphics | null,
+  canvas: HTMLCanvasElement,
+) => {
+  if (!graphics) return;
+  const { x, y } = canvas.getBoundingClientRect();
+  drawHandler(graphics, e.clientX - x, e.clientY - y);
 };
 
 export default PixiContainer;
