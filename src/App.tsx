@@ -1,4 +1,4 @@
-import { Container, HStack, Flex } from "@chakra-ui/react";
+import { Container, HStack } from "@chakra-ui/react";
 import SideBar from "@/components/side-bar/sidebar";
 import CanvasPaint from "@/components/canvas/canvas";
 
