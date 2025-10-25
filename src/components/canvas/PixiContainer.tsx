@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { extend, useApplication } from "@pixi/react";
 import { Container, Graphics, type Graphics as PixiGraphics } from "pixi.js";
 
@@ -11,35 +11,52 @@ let initialX: number = 0;
 let initialY: number = 0;
 
 function PixiContainer() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [graphics, setGraphics] = useState<PixiGraphics | null>(null);
   const { app } = useApplication();
-  const { canvas } = app;
+  //const { canvas } = app;
 
   useEffect(() => {
-    canvas.addEventListener("pointerdown", pointerdownHandler);
-    canvas.addEventListener("pointerup", pointerupDepsInjection);
+    canvasRef.current = app.canvas;
+    if (canvasRef.current) {
+      canvasRef.current.addEventListener("pointerdown", pointerdownHandler);
+      canvasRef.current.addEventListener("pointerup", pointerupDepsInjection);
+    }
 
     return () => {
-      canvas.removeEventListener("pointerdown", pointerdownHandler);
-      canvas.removeEventListener("pointerup", pointerupDepsInjection);
+      if (canvasRef.current) {
+        canvasRef.current.removeEventListener(
+          "pointerdown",
+          pointerdownHandler,
+        );
+        canvasRef.current.removeEventListener(
+          "pointerup",
+          pointerupDepsInjection,
+        );
+      }
     };
   }, [graphics]);
 
   const pointerdownHandler = (e: PointerEvent) => {
-    const { x, y } = canvas.getBoundingClientRect();
+    if (!canvasRef.current) return;
+    const { x, y } = canvasRef.current.getBoundingClientRect();
     initialX = e.clientX - x;
     initialY = e.clientY - y;
     drawHandler(graphics, initialX, initialY);
-    canvas.addEventListener("pointermove", pointermoveDepsInjection);
+    canvasRef.current.addEventListener("pointermove", pointermoveDepsInjection);
   };
-  const pointerupHandler = (_: PointerEvent, canvas: HTMLCanvasElement) =>
+  const pointerupHandler = (
+    _: PointerEvent,
+    canvas: HTMLCanvasElement | null,
+  ) =>
+    canvas &&
     canvas.removeEventListener("pointermove", pointermoveDepsInjection);
 
   /* Injections */
   const pointermoveDepsInjection = (e: PointerEvent) =>
-    pointermoveHandler(e, graphics, canvas);
+    pointermoveHandler(e, graphics, canvasRef.current);
   const pointerupDepsInjection = (e: PointerEvent) =>
-    pointerupHandler(e, canvas);
+    pointerupHandler(e, canvasRef.current);
 
   const storeGraphics = useCallback((g: PixiGraphics) => setGraphics(g), []);
   return (
@@ -62,6 +79,9 @@ const drawHandler = (
       color: 0xff0000,
       width: 10,
       cap: "round",
+      join: "miter",
+      //alpha: 0.5,
+      miterLimit: 5,
     });
   initialX = cursorX;
   initialY = cursorY;
@@ -70,9 +90,9 @@ const drawHandler = (
 const pointermoveHandler = (
   e: PointerEvent,
   graphics: PixiGraphics | null,
-  canvas: HTMLCanvasElement,
+  canvas: HTMLCanvasElement | null,
 ) => {
-  if (!graphics) return;
+  if (!graphics || !canvas) return;
   const { x, y } = canvas.getBoundingClientRect();
   drawHandler(graphics, e.clientX - x, e.clientY - y);
 };
