@@ -1,14 +1,7 @@
-import { type Size } from "@/types/components/canvas/size";
 import { Flex as ChakraFlex } from "@chakra-ui/react";
-import { Application, extend } from "@pixi/react";
-import { Container, Graphics } from "pixi.js";
+import { Application } from "@pixi/react";
 import { useRef } from "react";
 import PixiContainer from "./PixiContainer";
-
-extend({
-  Container,
-  Graphics,
-});
 
 function CanvasPaint() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,6 +22,7 @@ function CanvasPaint() {
         preference="webgpu"
         backgroundColor="#ffffff"
         resizeTo={containerRef}
+        antialias={true}
       >
         <PixiContainer />
       </Application>

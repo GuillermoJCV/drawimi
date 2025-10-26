@@ -37,7 +37,7 @@ function PixiContainer() {
     };
   }, [graphics]);
 
-  const pointerdownHandler = (e: PointerEvent) => {
+  const pointerdownHandler = async (e: PointerEvent) => {
     if (!canvasRef.current) return;
     const { x, y } = canvasRef.current.getBoundingClientRect();
     initialX = e.clientX - x;
@@ -45,7 +45,7 @@ function PixiContainer() {
     drawHandler(graphics, initialX, initialY);
     canvasRef.current.addEventListener("pointermove", pointermoveDepsInjection);
   };
-  const pointerupHandler = (
+  const pointerupHandler = async (
     _: PointerEvent,
     canvas: HTMLCanvasElement | null,
   ) =>
@@ -66,7 +66,7 @@ function PixiContainer() {
   );
 }
 
-const drawHandler = (
+const drawHandler = async (
   graphics: PixiGraphics | null,
   cursorX: number,
   cursorY: number,
@@ -79,15 +79,12 @@ const drawHandler = (
       color: 0xff0000,
       width: 10,
       cap: "round",
-      join: "miter",
-      //alpha: 0.5,
-      miterLimit: 5,
     });
   initialX = cursorX;
   initialY = cursorY;
 };
 
-const pointermoveHandler = (
+const pointermoveHandler = async (
   e: PointerEvent,
   graphics: PixiGraphics | null,
   canvas: HTMLCanvasElement | null,
