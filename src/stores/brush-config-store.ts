@@ -1,17 +1,14 @@
-import { create, type StoreApi } from "zustand";
+import { create } from "zustand";
 import { type ColorSource, type StrokeInput } from "pixi.js";
 
-type Config = {
+interface BrushConfig {
   config: StrokeInput;
-};
-
-type Actions = {
   setConfig: (newConfig: Partial<StrokeInput>) => void;
   setColor: (color: ColorSource) => void;
   setWidth: (width: number) => void;
-};
+}
 
-const useBrushConfig: StoreApi<Config & Actions> = create((set) => ({
+const useBrushConfig = create<BrushConfig>((set) => ({
   config: {
     color: 0xff0000,
     width: 10,
@@ -32,3 +29,5 @@ const useBrushConfig: StoreApi<Config & Actions> = create((set) => ({
 }));
 
 export default useBrushConfig;
+
+export type { BrushConfig };
