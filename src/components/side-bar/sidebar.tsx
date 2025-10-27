@@ -1,6 +1,6 @@
 import { VStack, Avatar, Separator, Spacer } from "@chakra-ui/react";
 import { ColorModeButton } from "@/components/chakra-ui/color-mode";
-import CustomColorPicker from "./color-picker";
+import CustomColorPicker from "./brush-picker-components/color-picker";
 import CustomBrushPicker from "./brush-picker";
 import CustomConfigSetter from "./config-setter";
 
@@ -11,7 +11,6 @@ function SideBar() {
         <Avatar.Fallback name="Jasmine Diaz" />
       </Avatar.Root>
       <Separator w="8rem" />
-      <CustomColorPicker />
       <CustomBrushPicker />
       <Spacer />
       <ColorModeButton rounded="full" variant="subtle" colorPalette="green" />
