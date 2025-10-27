@@ -1,20 +1,20 @@
 import { create } from "zustand";
-import { type ColorSource, type StrokeInput } from "pixi.js";
+import { type ColorSource, type StrokeStyle } from "pixi.js";
 
 interface BrushConfig {
-  config: StrokeInput;
-  setConfig: (newConfig: Partial<StrokeInput>) => void;
+  config: StrokeStyle;
+  setConfig: (newConfig: Partial<StrokeStyle>) => void;
   setColor: (color: ColorSource) => void;
   setWidth: (width: number) => void;
 }
 
 const useBrushConfig = create<BrushConfig>((set) => ({
   config: {
-    color: 0xff0000,
+    color: 0x86efac,
     width: 10,
     cap: "round",
   },
-  setConfig: (newConfig: Partial<StrokeInput>) =>
+  setConfig: (newConfig: Partial<StrokeStyle>) =>
     set((state) => ({
       config: Object.assign({}, state.config, newConfig),
     })),
