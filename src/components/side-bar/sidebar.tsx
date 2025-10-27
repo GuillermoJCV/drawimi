@@ -3,6 +3,7 @@ import { ColorModeButton } from "@/components/chakra-ui/color-mode";
 import CustomColorPicker from "./brush-picker-components/color-picker";
 import CustomBrushPicker from "./brush-picker";
 import CustomConfigSetter from "./config-setter";
+import DownloadButton from "./download-button";
 
 function SideBar() {
   return (
@@ -13,6 +14,7 @@ function SideBar() {
       <Separator w="8rem" />
       <CustomBrushPicker />
       <Spacer />
+      <DownloadButton />
       <ColorModeButton rounded="full" variant="subtle" colorPalette="green" />
       <CustomConfigSetter />
     </VStack>
