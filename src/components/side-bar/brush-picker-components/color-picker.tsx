@@ -8,10 +8,11 @@ function CustomColorPicker() {
         <ColorPicker.Trigger data-fit-content rounded="full">
           <ColorPicker.ValueSwatch rounded="inherit" w="2.5rem" h="2.5rem" />
         </ColorPicker.Trigger>
+        <ColorPicker.Input />
       </ColorPicker.Control>
       <Portal>
         <ColorPicker.Positioner>
-          <ColorPicker.Content>
+          <ColorPicker.Content zIndex="tooltip">
             <ColorPicker.Area />
             <HStack>
               <ColorPicker.EyeDropper size="sm" variant="outline" />
