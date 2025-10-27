@@ -7,6 +7,7 @@ import {
   type Graphics as PixiGraphics,
 } from "pixi.js";
 import useBrushConfig from "@/stores/brush-config-store";
+import useAppStore from "@/stores/app-store";
 
 extend({
   Container,
@@ -18,12 +19,14 @@ let initialY: number = 0;
 
 function PixiContainer() {
   const brushConfig = useBrushConfig((state) => state.config);
+  const setApp = useAppStore((state) => state.setApp);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [graphics, setGraphics] = useState<PixiGraphics | null>(null);
   const { app } = useApplication();
 
   useEffect(() => {
     canvasRef.current = app.canvas;
+    setApp(app);
     if (canvasRef.current) {
       canvasRef.current.addEventListener("pointerdown", pointerdownHandler);
       canvasRef.current.addEventListener("pointerup", pointerupDepsInjection);
