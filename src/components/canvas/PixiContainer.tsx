@@ -27,6 +27,10 @@ function PixiContainer() {
     if (canvasRef.current) {
       canvasRef.current.addEventListener("pointerdown", pointerdownHandler);
       canvasRef.current.addEventListener("pointerup", pointerupDepsInjection);
+      canvasRef.current.addEventListener(
+        "pointerleave",
+        pointerupDepsInjection,
+      );
     }
 
     return () => {
@@ -37,6 +41,10 @@ function PixiContainer() {
         );
         canvasRef.current.removeEventListener(
           "pointerup",
+          pointerupDepsInjection,
+        );
+        canvasRef.current.removeEventListener(
+          "pointerleave",
           pointerupDepsInjection,
         );
       }
