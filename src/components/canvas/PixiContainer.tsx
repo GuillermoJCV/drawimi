@@ -21,7 +21,6 @@ function PixiContainer() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [graphics, setGraphics] = useState<PixiGraphics | null>(null);
   const { app } = useApplication();
-  //const { canvas } = app;
 
   useEffect(() => {
     canvasRef.current = app.canvas;
