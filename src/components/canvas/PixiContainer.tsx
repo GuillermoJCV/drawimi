@@ -1,6 +1,12 @@
 import { useCallback, useState, useEffect, useRef } from "react";
 import { extend, useApplication } from "@pixi/react";
-import { Container, Graphics, type Graphics as PixiGraphics } from "pixi.js";
+import {
+  Container,
+  Graphics,
+  type StrokeInput,
+  type Graphics as PixiGraphics,
+} from "pixi.js";
+import useBrushConfig from "@/stores/brush-config-store";
 
 extend({
   Container,
@@ -11,6 +17,7 @@ let initialX: number = 0;
 let initialY: number = 0;
 
 function PixiContainer() {
+  const brushConfig = useBrushConfig((state) => state.config);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [graphics, setGraphics] = useState<PixiGraphics | null>(null);
   const { app } = useApplication();
@@ -35,28 +42,25 @@ function PixiContainer() {
         );
       }
     };
-  }, [graphics]);
+  }, [graphics, brushConfig]);
 
   const pointerdownHandler = async (e: PointerEvent) => {
     if (!canvasRef.current) return;
     const { x, y } = canvasRef.current.getBoundingClientRect();
     initialX = e.clientX - x;
     initialY = e.clientY - y;
-    drawHandler(graphics, initialX, initialY);
+    drawHandler(graphics, initialX, initialY, brushConfig);
     canvasRef.current.addEventListener("pointermove", pointermoveDepsInjection);
   };
-  const pointerupHandler = async (
-    _: PointerEvent,
-    canvas: HTMLCanvasElement | null,
-  ) =>
+  const pointerupHandler = async (canvas: HTMLCanvasElement | null) =>
     canvas &&
     canvas.removeEventListener("pointermove", pointermoveDepsInjection);
 
   /* Injections */
   const pointermoveDepsInjection = (e: PointerEvent) =>
-    pointermoveHandler(e, graphics, canvasRef.current);
-  const pointerupDepsInjection = (e: PointerEvent) =>
-    pointerupHandler(e, canvasRef.current);
+    pointermoveHandler(e, graphics, canvasRef.current, brushConfig);
+  const pointerupDepsInjection = (_: PointerEvent) =>
+    pointerupHandler(canvasRef.current);
 
   const storeGraphics = useCallback((g: PixiGraphics) => setGraphics(g), []);
   return (
@@ -70,16 +74,14 @@ const drawHandler = async (
   graphics: PixiGraphics | null,
   cursorX: number,
   cursorY: number,
+  brushConfig: StrokeInput,
 ) => {
   if (!graphics) return;
   graphics
     .moveTo(initialX, initialY)
-    .lineTo(cursorX + 1, cursorY + 1)
-    .stroke({
-      color: 0xff0000,
-      width: 10,
-      cap: "round",
-    });
+    .lineTo(cursorX, cursorY)
+    //TODO: use strokeinput here
+    .stroke(brushConfig);
   initialX = cursorX;
   initialY = cursorY;
 };
@@ -88,10 +90,11 @@ const pointermoveHandler = async (
   e: PointerEvent,
   graphics: PixiGraphics | null,
   canvas: HTMLCanvasElement | null,
+  brushConfig: StrokeInput,
 ) => {
   if (!graphics || !canvas) return;
   const { x, y } = canvas.getBoundingClientRect();
-  drawHandler(graphics, e.clientX - x, e.clientY - y);
+  drawHandler(graphics, e.clientX - x, e.clientY - y, brushConfig);
 };
 
 export default PixiContainer;
