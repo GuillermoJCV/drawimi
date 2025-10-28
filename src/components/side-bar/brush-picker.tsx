@@ -8,8 +8,8 @@ import {
   useSlider,
 } from "@chakra-ui/react";
 import { type ColorSource } from "pixi.js";
-import ColorPicker from "./brush-picker-components/color-picker";
-import WidthSlider from "./brush-picker-components/width-slider";
+import ColorPicker from "./brush-picker/color-picker";
+import WidthSlider from "./brush-picker/width-slider";
 import { RiBrushFill } from "react-icons/ri";
 import useBrushConfig from "@/stores/brush-config-store";
 import { useRef } from "react";
