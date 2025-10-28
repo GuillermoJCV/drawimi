@@ -1,8 +1,8 @@
 import { VStack, Avatar, Separator, Spacer } from "@chakra-ui/react";
 import { ColorModeButton } from "@/components/chakra-ui/color-mode";
-import CustomBrushPicker from "./brush-picker";
-import CustomConfigSetter from "./config-setter";
-import DownloadButton from "./download-button";
+import CustomBrushPickerPanel from "./brush-picker";
+import CustomConfigSetterPanel from "./config-setter";
+import DownloadOptionsPanel from "./download-options";
 
 function SideBar() {
   return (
@@ -11,11 +11,11 @@ function SideBar() {
         <Avatar.Fallback name="Jasmine Diaz" />
       </Avatar.Root>
       <Separator w="8rem" />
-      <CustomBrushPicker />
+      <CustomBrushPickerPanel />
       <Spacer />
-      <DownloadButton />
+      <DownloadOptionsPanel />
       <ColorModeButton rounded="full" variant="subtle" colorPalette="green" />
-      <CustomConfigSetter />
+      <CustomConfigSetterPanel />
     </VStack>
   );
 }
