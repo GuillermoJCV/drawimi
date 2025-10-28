@@ -11,11 +11,13 @@ function DownloadButton() {
   useEffect(() => {}, [app]);
 
   const downloadHandler: DownloadHandler = async (_) => {
-    if (!app) return; //TODO : Handle the error
+    if (!app) return; //TODO : Handle the error proplerly
+
     app.renderer.extract.download({
       target: app.stage,
       filename: "drawimi.png",
       resolution: 1,
+      antialias: true,
     });
   };
 
