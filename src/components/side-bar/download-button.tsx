@@ -1,17 +1,26 @@
 import { IconButton } from "@chakra-ui/react";
 import useAppStore from "@/stores/app-store";
 import { FaDownload } from "react-icons/fa";
+import { useEffect } from "react";
+
+type DownloadHandler = React.MouseEventHandler<HTMLButtonElement>;
 
 function DownloadButton() {
   const app = useAppStore((state) => state.app);
 
-  const downloadHandler: React.MouseEventHandler<HTMLButtonElement> = (_) => {
+  useEffect(() => {}, [app]);
+
+  const downloadHandler: DownloadHandler = async (_) => {
     if (!app) return; //TODO : Handle the error
-    app.renderer.extract.image(app.stage);
+    app.renderer.extract.download({
+      target: app.stage,
+      filename: "drawimi.png",
+      resolution: 1,
+    });
   };
 
   return (
-    <IconButton onClick={downloadHandler}>
+    <IconButton onClick={downloadHandler} rounded="full" colorPalette="green">
       <FaDownload />
     </IconButton>
   );
