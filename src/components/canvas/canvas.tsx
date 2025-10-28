@@ -1,7 +1,7 @@
 import { Flex as ChakraFlex } from "@chakra-ui/react";
 import { Application } from "@pixi/react";
 import { useRef } from "react";
-import PixiContainer from "./PixiContainer";
+import PixiContainer from "./pixi-container";
 
 function CanvasPaint() {
   const containerRef = useRef<HTMLDivElement>(null);
