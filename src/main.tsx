@@ -7,8 +7,9 @@ import FirebaseProvider from "@/components/context/firebase-context";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider>
-      <FirebaseProvider
-      <App />
+      <FirebaseProvider>
+        <App />
+      </FirebaseProvider>
     </Provider>
   </React.StrictMode>,
 );
