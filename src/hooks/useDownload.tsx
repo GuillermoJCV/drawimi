@@ -1,5 +1,5 @@
 import useAppStore from "@/stores/app-store";
-import { ExtractDownloadOptions } from "pixi.js";
+import { ExtractDownloadOptions, Rectangle } from "pixi.js";
 import { useCallback } from "react";
 
 function useDownload() {
@@ -12,10 +12,12 @@ function useDownload() {
         return;
       }
 
+      const canvasSize = app.canvas.getBoundingClientRect();
       const defaultOptions: ExtractDownloadOptions = {
         target: app.stage,
         filename: "drawimi.png",
         resolution: 1,
+        frame: new Rectangle(0, 0, canvasSize.width, canvasSize.height),
         antialias: true,
       };
 
