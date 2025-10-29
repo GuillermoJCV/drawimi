@@ -1,6 +1,5 @@
-import { IconButton } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import useAppStore from "@/stores/app-store";
-import { FaDownload } from "react-icons/fa";
 import { useEffect } from "react";
 
 type DownloadHandler = React.MouseEventHandler<HTMLButtonElement>;
@@ -22,9 +21,9 @@ function DownloadButton() {
   };
 
   return (
-    <IconButton onClick={downloadHandler} rounded="full" colorPalette="green">
-      <FaDownload />
-    </IconButton>
+    <Button onClick={downloadHandler} colorPalette="green">
+      Download
+    </Button>
   );
 }
 
