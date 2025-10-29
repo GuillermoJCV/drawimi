@@ -12,7 +12,7 @@ function useDownload() {
         return;
       }
 
-      const defaultOptions = {
+      const defaultOptions: ExtractDownloadOptions = {
         target: app.stage,
         filename: "drawimi.png",
         resolution: 1,
