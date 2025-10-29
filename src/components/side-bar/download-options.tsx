@@ -1,3 +1,4 @@
+import { ImageFormats } from "@/constants/sidebar/image-formats";
 import useDownload from "@/hooks/useDownload";
 import {
   Drawer,
@@ -6,6 +7,7 @@ import {
   IconButton,
   Button,
   Input,
+  InputGroup,
   Field,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -25,7 +27,7 @@ function DownloadOptionsPanel() {
 
   const onSubmit = handleSubmit((data) => {
     const { fileName } = data;
-    downloadHandler({ filename: fileName + ".png" });
+    downloadHandler({ filename: fileName + ImageFormats.PNG });
   });
 
   return (
@@ -54,7 +56,9 @@ function DownloadOptionsPanel() {
               <Drawer.Body>
                 <Field.Root invalid={!!errors.fileName}>
                   <Field.Label>First name</Field.Label>
-                  <Input {...register("fileName")} />
+                  <InputGroup endAddon={ImageFormats.PNG}>
+                    <Input {...register("fileName")} />
+                  </InputGroup>
                   <Field.ErrorText>{errors.fileName?.message}</Field.ErrorText>
                 </Field.Root>
               </Drawer.Body>
@@ -64,7 +68,6 @@ function DownloadOptionsPanel() {
                 <Button type="submit" colorPalette="green">
                   Download
                 </Button>
-                {/*<DownloadButton />*/}
               </Drawer.Footer>
               <Drawer.CloseTrigger asChild>
                 <CloseButton size="sm" />
