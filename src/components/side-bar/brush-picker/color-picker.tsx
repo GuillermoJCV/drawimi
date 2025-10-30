@@ -1,16 +1,20 @@
 import { ColorPicker, HStack, Portal, parseColor } from "@chakra-ui/react";
-import { type RefObject } from "react";
-import { type ColorSource } from "pixi.js";
+import useBrushConfig from "@/stores/brush-config-store";
 
 type Args = {
-  colorRef: RefObject<ColorSource>;
+  needInput?: boolean;
 };
 
-function CustomColorPicker({ colorRef }: Args) {
+function CustomColorPicker({ needInput = true }: Args) {
+  const setBrushColor = useBrushConfig((state) => state.setColor);
+  const currentBrushColor = useBrushConfig(
+    (state) => state.config.color || "#86efac",
+  );
+
   return (
     <ColorPicker.Root
-      defaultValue={parseColor(colorRef.current.toString())}
-      onValueChange={(e) => (colorRef.current = e.value.toString("hex"))}
+      defaultValue={parseColor(currentBrushColor.toString())}
+      onValueChange={(e) => setBrushColor(e.value.toString("hex"))}
       maxW="200px"
     >
       <ColorPicker.HiddenInput />
@@ -18,7 +22,7 @@ function CustomColorPicker({ colorRef }: Args) {
         <ColorPicker.Trigger data-fit-content rounded="full">
           <ColorPicker.ValueSwatch rounded="inherit" w="2.5rem" h="2.5rem" />
         </ColorPicker.Trigger>
-        <ColorPicker.Input />
+        {needInput && <ColorPicker.Input />}
       </ColorPicker.Control>
       <Portal>
         <ColorPicker.Positioner>

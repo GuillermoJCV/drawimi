@@ -7,20 +7,16 @@ import {
   VStack,
   useSlider,
 } from "@chakra-ui/react";
-import { type ColorSource } from "pixi.js";
 import ColorPicker from "./brush-picker/color-picker";
 import WidthSlider from "./brush-picker/width-slider";
 import { RiBrushFill } from "react-icons/ri";
 import useBrushConfig from "@/stores/brush-config-store";
-import { useRef } from "react";
 
 function CustomBrushPicker() {
-  const setBrushColor = useBrushConfig((state) => state.setColor);
   const setBrushWidth = useBrushConfig((state) => state.setWidth);
   const brushWidth: number | undefined = useBrushConfig(
-    (state) => state.config.width, //TODO: Type width is a number
+    (state) => state.config.width,
   );
-  const brushColor = useRef<ColorSource>("#86efac");
   const widthSlider = useSlider({
     defaultValue: [brushWidth || 10],
     thumbAlignment: "center",
@@ -28,8 +24,6 @@ function CustomBrushPicker() {
 
   const updateBrush = () => {
     setBrushWidth(widthSlider.value[0]);
-    setBrushColor(brushColor.current);
-    console.log(brushColor.current);
   };
 
   return (
@@ -56,7 +50,7 @@ function CustomBrushPicker() {
             </Drawer.Header>
             <Drawer.Body>
               <VStack gap="2rem">
-                <ColorPicker colorRef={brushColor} />
+                <ColorPicker />
                 <WidthSlider slider={widthSlider} />
               </VStack>
             </Drawer.Body>
