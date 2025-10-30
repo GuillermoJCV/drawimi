@@ -10,7 +10,7 @@ interface BrushConfig {
 
 const useBrushConfig = create<BrushConfig>((set) => ({
   config: {
-    color: 0x86efac,
+    color: "#86efac",
     width: 10,
     cap: "round",
   },
