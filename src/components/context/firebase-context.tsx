@@ -17,3 +17,4 @@ function FirebaseProvider({ children }: PropsWithChildren) {
 }
 
 export default FirebaseProvider;
+export { FirebaseContext };
