@@ -1,6 +1,5 @@
 import {
   Drawer,
-  Button,
   CloseButton,
   Portal,
   IconButton,
