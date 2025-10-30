@@ -5,27 +5,12 @@ import {
   Portal,
   IconButton,
   VStack,
-  useSlider,
 } from "@chakra-ui/react";
 import ColorPicker from "./brush-picker/color-picker";
 import WidthSlider from "./brush-picker/width-slider";
 import { RiBrushFill } from "react-icons/ri";
-import useBrushConfig from "@/stores/brush-config-store";
 
 function CustomBrushPicker() {
-  const setBrushWidth = useBrushConfig((state) => state.setWidth);
-  const brushWidth: number | undefined = useBrushConfig(
-    (state) => state.config.width,
-  );
-  const widthSlider = useSlider({
-    defaultValue: [brushWidth || 10],
-    thumbAlignment: "center",
-  });
-
-  const updateBrush = () => {
-    setBrushWidth(widthSlider.value[0]);
-  };
-
   return (
     <Drawer.Root size="xs">
       <Drawer.Trigger asChild>
@@ -51,17 +36,10 @@ function CustomBrushPicker() {
             <Drawer.Body>
               <VStack gap="2rem">
                 <ColorPicker />
-                <WidthSlider slider={widthSlider} />
+                <WidthSlider />
               </VStack>
             </Drawer.Body>
-            <Drawer.Footer>
-              <Drawer.ActionTrigger asChild>
-                <Button variant="outline">Cancel</Button>
-              </Drawer.ActionTrigger>
-              <Drawer.ActionTrigger asChild>
-                <Button onClick={updateBrush}>Save</Button>
-              </Drawer.ActionTrigger>
-            </Drawer.Footer>
+            <Drawer.Footer>{/* Idk if add something here */}</Drawer.Footer>
             <Drawer.CloseTrigger asChild>
               <CloseButton size="sm" />
             </Drawer.CloseTrigger>

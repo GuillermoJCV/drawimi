@@ -1,13 +1,26 @@
-import { Slider, UseSliderReturn } from "@chakra-ui/react";
+import { HStack, Slider, useSlider } from "@chakra-ui/react";
+import useBrushConfig from "@/stores/brush-config-store";
 
-type Args = {
-  slider: UseSliderReturn;
-};
+function WidthSlider() {
+  const setBrushWidth = useBrushConfig((state) => state.setWidth);
+  const brushWidth: number | undefined = useBrushConfig(
+    (state) => state.config.width,
+  );
+  const widthSlider = useSlider({
+    defaultValue: [brushWidth || 10],
+    thumbAlignment: "center",
+  });
 
-function WidthSlider({ slider }: Args) {
   return (
-    <Slider.RootProvider value={slider} width="200px">
-      <Slider.Label>Width</Slider.Label>
+    <Slider.RootProvider
+      onChange={async () => setBrushWidth(widthSlider.value[0])}
+      value={widthSlider}
+      width="200px"
+    >
+      <HStack>
+        <Slider.Label>Width</Slider.Label>
+        <Slider.ValueText />
+      </HStack>
       <Slider.Control>
         <Slider.Track>
           <Slider.Range />
