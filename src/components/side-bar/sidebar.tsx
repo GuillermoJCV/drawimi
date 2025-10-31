@@ -4,13 +4,12 @@ import CustomBrushPickerPanel from "./brush-picker";
 import CustomConfigSetterPanel from "./config-setter";
 import DownloadOptionsPanel from "./download-options";
 import CustomColorPicker from "./brush-picker/color-picker";
+import UserConfig from "./user-config";
 
 function SideBar() {
   return (
     <VStack as="aside" maxW="2xs" gap="2rem" h="dvh" pt="8" pb="8">
-      <Avatar.Root variant="subtle" colorPalette="green" w="3rem" h="3rem">
-        <Avatar.Fallback name="Jasmine Diaz" />
-      </Avatar.Root>
+      <UserConfig />
       <Separator w="8rem" />
       <CustomBrushPickerPanel />
       <CustomColorPicker needInput={false} />
