@@ -1,15 +1,15 @@
-import { VStack, Avatar, Separator, Spacer } from "@chakra-ui/react";
+import { VStack, Separator, Spacer } from "@chakra-ui/react";
 import { ColorModeButton } from "@/components/chakra-ui/color-mode";
 import CustomBrushPickerPanel from "./brush-picker";
 import CustomConfigSetterPanel from "./config-setter";
 import DownloadOptionsPanel from "./download-options";
 import CustomColorPicker from "./brush-picker/color-picker";
-import UserConfig from "./user-config";
+import User from "./user";
 
 function SideBar() {
   return (
     <VStack as="aside" maxW="2xs" gap="2rem" h="dvh" pt="8" pb="8">
-      <UserConfig />
+      <User />
       <Separator w="8rem" />
       <CustomBrushPickerPanel />
       <CustomColorPicker needInput={false} />
