@@ -1,6 +1,5 @@
 import { useContext, useCallback } from "react";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -14,42 +13,30 @@ const handleAuthError = (err: any) => {
 
 function useCreateUserPass() {
   const setUser = userUserStore((state) => state.setUser);
-  const firebaseApp = useContext(FirebaseContext);
+  const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback(
-    (username: string, password: string) => {
-      if (!firebaseApp) return;
-      const auth = getAuth(firebaseApp);
-
-      createUserWithEmailAndPassword(auth, username, password)
-        .then((credentials) => {
-          setUser(credentials.user);
-        })
-        .catch(handleAuthError);
-    },
-    [firebaseApp],
-  );
+  const useAuth = useCallback((username: string, password: string) => {
+    createUserWithEmailAndPassword(auth, username, password)
+      .then((credentials) => {
+        setUser(credentials.user);
+      })
+      .catch(handleAuthError);
+  }, []);
 
   return useAuth;
 }
 
 function useSignInEmailPass() {
   const setUser = userUserStore((state) => state.setUser);
-  const firebaseApp = useContext(FirebaseContext);
+  const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback(
-    (username: string, password: string) => {
-      if (!firebaseApp) return;
-      const auth = getAuth(firebaseApp);
-
-      signInWithEmailAndPassword(auth, username, password)
-        .then((credentials) => {
-          setUser(credentials.user);
-        })
-        .catch(handleAuthError);
-    },
-    [firebaseApp],
-  );
+  const useAuth = useCallback((username: string, password: string) => {
+    signInWithEmailAndPassword(auth, username, password)
+      .then((credentials) => {
+        setUser(credentials.user);
+      })
+      .catch(handleAuthError);
+  }, []);
 
   return useAuth;
 }

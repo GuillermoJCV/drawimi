@@ -1,5 +1,6 @@
 import { PropsWithChildren, createContext } from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
+import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCB42qRE98FUjcDVYczfANRhRwIEnuSawE",
@@ -9,11 +10,22 @@ const firebaseConfig = {
   appId: "1:366986843739:web:08089223549fd4dd6d517e",
 };
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const FirebaseContext = createContext<FirebaseApp | null>(null);
+type FirebaseContextValues = {
+  app: FirebaseApp;
+  auth: Auth;
+};
+
+const defaultValues: FirebaseContextValues = {
+  app,
+  auth,
+};
+
+const FirebaseContext = createContext<FirebaseContextValues>(defaultValues);
 
 function FirebaseProvider({ children }: PropsWithChildren) {
-  return <FirebaseContext value={app}>{children}</FirebaseContext>;
+  return <FirebaseContext value={defaultValues}>{children}</FirebaseContext>;
 }
 
 export default FirebaseProvider;
