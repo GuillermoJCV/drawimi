@@ -11,12 +11,12 @@ const handleAuthError = (err: any) => {
   console.log(err);
 };
 
-function useCreateUserPass() {
+function useCreateEmailPass() {
   const setUser = userUserStore((state) => state.setUser);
   const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback((username: string, password: string) => {
-    createUserWithEmailAndPassword(auth, username, password)
+  const useAuth = useCallback((email: string, password: string) => {
+    createUserWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         setUser(credentials.user);
       })
@@ -30,8 +30,8 @@ function useSignInEmailPass() {
   const setUser = userUserStore((state) => state.setUser);
   const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback((username: string, password: string) => {
-    signInWithEmailAndPassword(auth, username, password)
+  const useAuth = useCallback((email: string, password: string) => {
+    signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         setUser(credentials.user);
       })
@@ -41,4 +41,4 @@ function useSignInEmailPass() {
   return useAuth;
 }
 
-export { useCreateUserPass, useSignInEmailPass };
+export { useCreateEmailPass, useSignInEmailPass };
