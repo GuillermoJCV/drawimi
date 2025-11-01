@@ -3,123 +3,129 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
-} from "firebase/auth";
-import { FirebaseContext } from "@/components/context/firebase-context";
-import useUserStore from "@/stores/user-store";
-import { toaster } from "@/components/chakra-ui/toaster";
-import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   TwitterAuthProvider,
-} from "firebase/auth/web-extension";
+} from "firebase/auth";
+import { FirebaseContext } from "@/components/context/firebase-context";
+import useUserStore from "@/stores/user-store";
+import { Provider } from "@/constants/sidebar/providers";
+import { useToasterUpdate } from "./toaster";
+import { ToasterStatus } from "@/constants/toaster/status";
 
-function useFacebookProvider() {
+function useProvider(providerType: Provider) {
+  const toasterUpdate = useToasterUpdate("login-error-toast");
   const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
   const { auth } = useContext(FirebaseContext);
-  const provider = new FacebookAuthProvider();
+  let provider;
+  if (providerType === "google") {
+    provider = new GoogleAuthProvider();
+  } else if (providerType === "facebook") {
+    provider = new FacebookAuthProvider();
+  } /*twitter*/ else {
+    provider = new TwitterAuthProvider();
+  }
 
-  const useAuth = useCallback(async () => {
-    const promise = signInWithPopup(auth, provider)
+  return useCallback(async () => {
+    toasterUpdate({
+      title: "Signing in...",
+      description: "Please wait",
+      type: ToasterStatus.LOADING,
+    });
+
+    signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
       })
-      .catch(handleAuthError);
-
-    toaster.promise(promise, toasterConfig);
-  }, []);
-
-  return useAuth;
-}
-
-function useTwitterProvider() {
-  const setUser = useUserStore((state) => state.setUser);
-  const { auth } = useContext(FirebaseContext);
-  const provider = new TwitterAuthProvider();
-
-  const useAuth = useCallback(async () => {
-    const promise = signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
+      .then(() => {
+        if (user)
+          toasterUpdate({
+            title: "Welcome to Drawimi!!!",
+            description: "Enjoy the app",
+            type: ToasterStatus.SUCCESS,
+            duration: 3000,
+          });
       })
-      .catch(handleAuthError);
-
-    toaster.promise(promise, toasterConfig);
+      .catch((err) => {
+        console.log(JSON.stringify(err));
+        toasterUpdate({
+          title: "Something went wrong",
+          description: "Please try again",
+          type: ToasterStatus.ERROR,
+          duration: 3000,
+        });
+      });
   }, []);
-
-  return useAuth;
-}
-
-function useGoogleProvider() {
-  const setUser = useUserStore((state) => state.setUser);
-  const { auth } = useContext(FirebaseContext);
-  const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-
-  const useAuth = useCallback(async () => {
-    const promise = signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch(handleAuthError);
-
-    toaster.promise(promise, toasterConfig);
-  }, []);
-
-  return useAuth;
 }
 
 function useCreateEmailPass() {
+  const toasterUpdate = useToasterUpdate("signup-error-toast-email-password");
   const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
   const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback(async (email: string, password: string) => {
-    const promise = createUserWithEmailAndPassword(auth, email, password)
+  return useCallback(async (email: string, password: string) => {
+    toasterUpdate({
+      title: "Signing in...",
+      description: "Please wait",
+      type: ToasterStatus.LOADING,
+    });
+    createUserWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         setUser(credentials.user);
       })
-      .catch(handleAuthError);
-
-    toaster.promise(promise, toasterConfig);
+      .then(() => {
+        if (user)
+          toasterUpdate({
+            title: "Welcome to Drawimi!!!",
+            description: "Enjoy the app",
+            type: ToasterStatus.SUCCESS,
+            duration: 3000,
+          });
+      })
+      .catch((err) => {
+        console.log(JSON.stringify(err));
+        toasterUpdate({
+          title: "Something went wrong",
+          description: "Please try again",
+          type: ToasterStatus.ERROR,
+          duration: 3000,
+        });
+      });
   }, []);
-
-  return useAuth;
 }
 
 function useSignInEmailPass() {
+  const toasterUpdate = useToasterUpdate("signin-error-toast-email-password");
   const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
   const { auth } = useContext(FirebaseContext);
 
-  const useAuth = useCallback(async (email: string, password: string) => {
-    const promise = signInWithEmailAndPassword(auth, email, password)
+  return useCallback(async (email: string, password: string) => {
+    signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
         setUser(credentials.user);
       })
-      .catch(handleAuthError);
-
-    toaster.promise(promise, toasterConfig);
+      .then(() => {
+        if (user)
+          toasterUpdate({
+            title: "Welcome to Drawimi!!!",
+            description: "Enjoy the app",
+            type: ToasterStatus.SUCCESS,
+            duration: 3000,
+          });
+      })
+      .catch((err) => {
+        console.log(JSON.stringify(err));
+        toasterUpdate({
+          title: "Something went wrong",
+          description: "Please try again",
+          type: ToasterStatus.ERROR,
+          duration: 3000,
+        });
+      });
   }, []);
-
-  return useAuth;
 }
 
-export {
-  useCreateEmailPass,
-  useSignInEmailPass,
-  useGoogleProvider,
-  useFacebookProvider,
-  useTwitterProvider,
-};
-
-const handleAuthError = (err: any) => console.log(err);
-
-const toasterConfig = {
-  success: {
-    title: "Successfully signed!",
-    description: "Welcome to Drawimi",
-  },
-  error: {
-    title: "Failed siging in",
-    description: "Try again later",
-  },
-  loading: { title: "Signing...", description: "Please wait" },
-};
+export { useCreateEmailPass, useSignInEmailPass, useProvider };
