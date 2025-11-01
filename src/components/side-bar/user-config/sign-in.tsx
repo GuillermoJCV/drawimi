@@ -1,12 +1,8 @@
 import { Button, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/chakra-ui/password-input";
 import { useForm } from "react-hook-form";
-import {
-  useFacebookProvider,
-  useGoogleProvider,
-  useTwitterProvider,
-  useSignInEmailPass,
-} from "@/hooks/firebase";
+import { useSignInEmailPass, useProvider } from "@/hooks/firebase";
+import { Provider } from "@/constants/sidebar/providers";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 
 interface FormValues {
@@ -15,9 +11,9 @@ interface FormValues {
 }
 
 function SignIn() {
-  const signWithGoogle = useGoogleProvider();
-  const signWithFacebook = useFacebookProvider();
-  const signWithTwitter = useTwitterProvider();
+  const signWithGoogle = useProvider(Provider.GOOGLE);
+  const signWithFacebook = useProvider(Provider.FACEBOOK);
+  const signWithTwitter = useProvider(Provider.TWITTER);
   const signIn = useSignInEmailPass();
   const {
     register,
