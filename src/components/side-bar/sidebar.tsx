@@ -8,7 +8,7 @@ import User from "./user";
 
 function SideBar() {
   return (
-    <VStack as="aside" maxW="2xs" gap="2rem" h="dvh" pt="8" pb="8">
+    <VStack as="aside" maxW="2xs" gap="2rem" h="100%">
       <User />
       <Separator w="8rem" />
       <CustomBrushPickerPanel />
