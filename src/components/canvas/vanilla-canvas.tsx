@@ -5,11 +5,6 @@ interface CanvasProps {
   resizeTo: DOMRect;
 }
 
-// This does not work
-// I tried to store the image and then put if after each rendering
-//  Try to use the context of the use effect to store the image
-//  Then render it here
-
 let isDrawing = false;
 function Canvas({ resizeTo }: CanvasProps) {
   const brushConfig = useBrushConfig((state) => state.config);
@@ -29,9 +24,7 @@ function Canvas({ resizeTo }: CanvasProps) {
     const canvas = canvasRef.current;
 
     if (canvas) {
-      // Restore the image if exist
       setContext(canvas.getContext("2d"));
-      //setBackground(ctx, canvas, "white");
       setRestoredBackground();
 
       canvas.addEventListener("pointerdown", onpointerdownHandler);
