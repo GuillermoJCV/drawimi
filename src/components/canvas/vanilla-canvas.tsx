@@ -1,5 +1,5 @@
 import useBrushConfig from "@/stores/brush-config-store";
-import { useEffect, useRef, useState, useCallback, CSSProperties } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface CanvasProps {
   resizeTo: DOMRect;
