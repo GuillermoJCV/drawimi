@@ -1,5 +1,12 @@
 import { create } from "zustand";
-import { type ColorSource, type StrokeStyle } from "pixi.js";
+import { type ColorSource } from "pixi.js";
+
+type StrokeStyle = {
+  color: string | CanvasGradient | CanvasPattern;
+  width: number;
+  cap: CanvasLineCap;
+  join: CanvasLineJoin;
+};
 
 interface BrushConfig {
   config: StrokeStyle;
@@ -13,6 +20,7 @@ const useBrushConfig = create<BrushConfig>((set) => ({
     color: "#86efac",
     width: 10,
     cap: "round",
+    join: "round",
   },
   setConfig: (newConfig: Partial<StrokeStyle>) =>
     set((state) => ({
