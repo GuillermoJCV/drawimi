@@ -6,7 +6,7 @@ interface App {
   setCanvas: (canvas: HTMLCanvasElement) => void;
 }
 
-const useAppStore = create<App>((set) => ({
+const useCanvasStore = create<App>((set) => ({
   canvas: null,
   setCanvas: (canvas) =>
     set(() => ({
@@ -14,4 +14,4 @@ const useAppStore = create<App>((set) => ({
     })),
 }));
 
-export default useAppStore;
+export default useCanvasStore;
