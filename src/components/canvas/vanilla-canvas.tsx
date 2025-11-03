@@ -1,6 +1,7 @@
 import useCanvasHandler from "@/hooks/useCanvasHandler";
 import { useRestoreBackground } from "@/hooks/useRestoreBackground";
 import useBrushConfig from "@/stores/brush-config-store";
+import useCanvasStore from "@/stores/canvas-store";
 import { useEffect, useRef, useState } from "react";
 
 interface Args {
@@ -10,6 +11,7 @@ interface Args {
 //TODO: The draw disappear when resizing
 function Canvas({ resizeTo }: Args) {
   const brushConfig = useBrushConfig((state) => state.config);
+  const setCanvas = useCanvasStore((state) => state.setCanvas);
   const [ctx, setCtx] = useState<CanvasCtx | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { restoreBackground, storeBackground } = useRestoreBackground(
@@ -23,6 +25,7 @@ function Canvas({ resizeTo }: Args) {
     const canvas = canvasRef.current;
 
     if (canvas) {
+      setCanvas(canvas);
       const context = canvas.getContext("2d");
       context && setCtx(context);
       restoreBackground();
@@ -42,7 +45,7 @@ function Canvas({ resizeTo }: Args) {
         canvas.removeEventListener("pointermove", onpointermoveHandler);
       }
     };
-  }, [brushConfig]);
+  }, [canvasRef.current, brushConfig]);
 
   // Canvas Element
   return (
