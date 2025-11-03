@@ -1,29 +1,25 @@
-import useAppStore from "@/stores/app-store";
-import { ExtractDownloadOptions, Rectangle } from "pixi.js";
+import { DownloadFormat } from "@/constants/sidebar/download-formats";
+import useCanvasStore from "@/stores/canvas-store";
+import { DownloadOptions } from "@/types/canvas/download";
 import { useCallback } from "react";
 
+//TODO: Handle again the download
 function useDownload() {
-  const app = useAppStore((state) => state.app);
+  const canvas = useCanvasStore((state) => state.canvas);
   const callback = useCallback(
-    (options: Partial<ExtractDownloadOptions>) => {
-      if (!app) {
-        //Send an advice instead
-        console.log("Cloudn't create the image");
-        return;
-      }
+    (options: DownloadOptions) => {
+      if (!canvas) return;
+      const imgURL = canvas.toDataURL("image/png", 1.0);
 
-      const canvasSize = app.canvas.getBoundingClientRect();
-      const defaultOptions: ExtractDownloadOptions = {
-        target: app.stage,
-        filename: "drawimi.png",
-        resolution: 1,
-        frame: new Rectangle(0, 0, canvasSize.width, canvasSize.height),
-        antialias: true,
-      };
+      const downloadAnchore = document.createElement("a");
+      downloadAnchore.href = imgURL;
+      downloadAnchore.download = `${options.filename}.png`;
 
-      app.renderer.extract.download(Object.assign({}, defaultOptions, options));
+      document.body.appendChild(downloadAnchore);
+      downloadAnchore.click();
+      document.body.removeChild(downloadAnchore);
     },
-    [app],
+    [canvas],
   );
 
   return callback;
