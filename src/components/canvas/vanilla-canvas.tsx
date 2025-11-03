@@ -18,8 +18,11 @@ function Canvas({ resizeTo }: Args) {
     ctx,
     canvasRef,
   );
-  const { onpointerdownHandler, onpointerupHandler, onpointermoveHandler } =
-    useCanvasHandler(ctx, canvasRef);
+  const {
+    onpointerdownHandler: start,
+    onpointerupHandler: stop,
+    onpointermoveHandler: draw,
+  } = useCanvasHandler(ctx, canvasRef);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -30,19 +33,19 @@ function Canvas({ resizeTo }: Args) {
       context && setCtx(context);
       restoreBackground();
 
-      canvas.addEventListener("pointerdown", onpointerdownHandler);
-      canvas.addEventListener("pointerup", onpointerupHandler);
-      canvas.addEventListener("pointerout", onpointerupHandler);
-      canvas.addEventListener("pointermove", onpointermoveHandler);
+      canvas.addEventListener("pointerdown", start);
+      canvas.addEventListener("pointerup", stop);
+      canvas.addEventListener("pointerout", stop);
+      canvas.addEventListener("pointermove", draw);
     }
 
     return () => {
       if (canvas) {
         storeBackground();
-        canvas.removeEventListener("pointerdown", onpointerdownHandler);
-        canvas.removeEventListener("pointerup", onpointerupHandler);
-        canvas.removeEventListener("pointerout", onpointerupHandler);
-        canvas.removeEventListener("pointermove", onpointermoveHandler);
+        canvas.removeEventListener("pointerdown", start);
+        canvas.removeEventListener("pointerup", stop);
+        canvas.removeEventListener("pointerout", stop);
+        canvas.removeEventListener("pointermove", draw);
       }
     };
   }, [canvasRef.current, brushConfig]);
