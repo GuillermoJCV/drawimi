@@ -21,7 +21,16 @@ function CanvasPaint() {
     element && setResizeTo(element.getBoundingClientRect());
 
   return (
-    <Flex w="100%" h="100%" ref={containerRef}>
+    <Flex
+      as="section"
+      w="100%"
+      h="100%"
+      css={{
+        overflow: "hidden",
+        borderRadius: "2rem",
+      }}
+      ref={containerRef}
+    >
       {resizeTo && <Canvas resizeTo={resizeTo} />}
     </Flex>
   );
