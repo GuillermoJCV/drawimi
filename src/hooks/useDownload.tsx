@@ -1,4 +1,3 @@
-import { DownloadFormat } from "@/constants/sidebar/download-formats";
 import useCanvasStore from "@/stores/canvas-store";
 import { DownloadOptions } from "@/types/canvas/download";
 import { useCallback } from "react";
@@ -7,13 +6,13 @@ import { useCallback } from "react";
 function useDownload() {
   const canvas = useCanvasStore((state) => state.canvas);
   const callback = useCallback(
-    (options: DownloadOptions) => {
+    async (options: DownloadOptions) => {
       if (!canvas) return;
-      const imgURL = canvas.toDataURL("image/png", 1.0);
+      const imgURL = canvas.toDataURL(`image/${options.format}`, 1.0);
 
       const downloadAnchore = document.createElement("a");
       downloadAnchore.href = imgURL;
-      downloadAnchore.download = `${options.filename}.png`;
+      downloadAnchore.download = `${options.filename}.${options.format}`;
 
       document.body.appendChild(downloadAnchore);
       downloadAnchore.click();
