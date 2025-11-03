@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 interface Args {
   resizeTo: DOMRect;
 }
-debugger;
+
+//TODO: The draw disappear when resizing
 function Canvas({ resizeTo }: Args) {
   const brushConfig = useBrushConfig((state) => state.config);
   const [ctx, setCtx] = useState<CanvasCtx | null>(null);
@@ -28,6 +29,7 @@ function Canvas({ resizeTo }: Args) {
 
       canvas.addEventListener("pointerdown", onpointerdownHandler);
       canvas.addEventListener("pointerup", onpointerupHandler);
+      canvas.addEventListener("pointerout", onpointerupHandler);
       canvas.addEventListener("pointermove", onpointermoveHandler);
     }
 
@@ -36,10 +38,11 @@ function Canvas({ resizeTo }: Args) {
         storeBackground();
         canvas.removeEventListener("pointerdown", onpointerdownHandler);
         canvas.removeEventListener("pointerup", onpointerupHandler);
+        canvas.removeEventListener("pointerout", onpointerupHandler);
         canvas.removeEventListener("pointermove", onpointermoveHandler);
       }
     };
-  }, [canvasRef.current, resizeTo, brushConfig]);
+  }, [brushConfig]);
 
   // Canvas Element
   return (
