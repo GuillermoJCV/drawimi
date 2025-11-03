@@ -10,8 +10,10 @@ import {
   InputGroup,
   Field,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaDownload } from "react-icons/fa6";
+import SelectFormats from "./download-options/select-formats";
 
 interface FormValues {
   filename: string;
@@ -23,11 +25,12 @@ function DownloadOptionsPanel() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const [format, setFormat] = useState<DownloadFormat>("png");
   const downloadHandler = useDownload();
 
   const onSubmit = handleSubmit((data) => {
     const { filename } = data;
-    downloadHandler({ filename, format: ".png" });
+    downloadHandler({ filename, format: format });
   });
 
   return (
@@ -56,7 +59,9 @@ function DownloadOptionsPanel() {
               <Drawer.Body>
                 <Field.Root invalid={!!errors.filename}>
                   <Field.Label>First name</Field.Label>
-                  <InputGroup endAddon={".png"}>
+                  <InputGroup
+                    endElement={<SelectFormats setFormat={setFormat} />}
+                  >
                     <Input {...register("filename")} />
                   </InputGroup>
                   <Field.ErrorText>{errors.filename?.message}</Field.ErrorText>
