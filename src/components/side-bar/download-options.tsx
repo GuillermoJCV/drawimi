@@ -1,4 +1,4 @@
-import { ImageFormats } from "@/constants/sidebar/image-formats";
+import { DownloadFormat } from "@/constants/sidebar/download-formats";
 import useDownload from "@/hooks/useDownload";
 import {
   Drawer,
@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { FaDownload } from "react-icons/fa6";
 
 interface FormValues {
-  fileName: string;
+  filename: string;
 }
 
 function DownloadOptionsPanel() {
@@ -26,8 +26,8 @@ function DownloadOptionsPanel() {
   const downloadHandler = useDownload();
 
   const onSubmit = handleSubmit((data) => {
-    const { fileName } = data;
-    downloadHandler({ filename: fileName + ImageFormats.PNG });
+    const { filename } = data;
+    downloadHandler({ filename, format: ".png" });
   });
 
   return (
@@ -54,12 +54,12 @@ function DownloadOptionsPanel() {
                 <Drawer.Title>Download</Drawer.Title>
               </Drawer.Header>
               <Drawer.Body>
-                <Field.Root invalid={!!errors.fileName}>
+                <Field.Root invalid={!!errors.filename}>
                   <Field.Label>First name</Field.Label>
-                  <InputGroup endAddon={ImageFormats.PNG}>
-                    <Input {...register("fileName")} />
+                  <InputGroup endAddon={".png"}>
+                    <Input {...register("filename")} />
                   </InputGroup>
-                  <Field.ErrorText>{errors.fileName?.message}</Field.ErrorText>
+                  <Field.ErrorText>{errors.filename?.message}</Field.ErrorText>
                 </Field.Root>
               </Drawer.Body>
               <Drawer.Footer
