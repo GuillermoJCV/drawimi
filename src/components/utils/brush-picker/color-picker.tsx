@@ -1,9 +1,10 @@
 import { ColorPicker, HStack, Portal, parseColor } from "@chakra-ui/react";
 import useBrushConfig from "@/stores/brush-config-store";
 
-type Args = {
+type CustomArgs = {
   needInput?: boolean;
 };
+type Args = Omit<ColorPicker.RootProps, "children"> & CustomArgs;
 
 function CustomColorPicker({ needInput = true }: Args) {
   const setBrushColor = useBrushConfig((state) => state.setColor);

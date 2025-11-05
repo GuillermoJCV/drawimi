@@ -1,7 +1,7 @@
 import {
   DownloadFormat,
   downloadFormats,
-} from "@/constants/sidebar/download-formats";
+} from "@/constants/utils/download-formats";
 import { NativeSelect, For } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 

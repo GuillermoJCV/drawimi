@@ -9,9 +9,11 @@ import ColorPicker from "./brush-picker/color-picker";
 import WidthSlider from "./brush-picker/width-slider";
 import { RiBrushFill } from "react-icons/ri";
 
-function CustomBrushPicker() {
+type Args = Omit<Drawer.RootProps, "children">;
+
+function CustomBrushPicker(props: Args) {
   return (
-    <Drawer.Root size="xs">
+    <Drawer.Root {...props}>
       <Drawer.Trigger asChild>
         <IconButton
           variant="subtle"

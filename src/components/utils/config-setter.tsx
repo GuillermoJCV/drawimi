@@ -8,9 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { FaGear } from "react-icons/fa6";
 
-function ConfigSetter() {
+type Args = Omit<Drawer.RootProps, "children">;
+
+function ConfigSetter(props: Args) {
   return (
-    <Drawer.Root size="xs">
+    <Drawer.Root {...props}>
       <Drawer.Trigger asChild>
         <IconButton
           variant="subtle"

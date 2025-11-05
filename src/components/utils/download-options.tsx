@@ -1,4 +1,4 @@
-import { DownloadFormat } from "@/constants/sidebar/download-formats";
+import { DownloadFormat } from "@/constants/utils/download-formats";
 import useDownload from "@/hooks/useDownload";
 import {
   Drawer,
@@ -19,7 +19,9 @@ interface FormValues {
   filename: string;
 }
 
-function DownloadOptionsPanel() {
+type Args = Omit<Drawer.RootProps, "children">;
+
+function DownloadOptionsPanel(props: Args) {
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ function DownloadOptionsPanel() {
   });
 
   return (
-    <Drawer.Root size="xs">
+    <Drawer.Root {...props}>
       <Drawer.Trigger asChild>
         <IconButton
           variant="subtle"
@@ -84,5 +86,9 @@ function DownloadOptionsPanel() {
     </Drawer.Root>
   );
 }
+
+// const drawerProps: Drawer.RootProps = {
+//   size: { sm: "sm", md: "xs" },
+// };
 
 export default DownloadOptionsPanel;

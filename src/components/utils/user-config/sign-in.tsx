@@ -2,7 +2,7 @@ import { Button, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/chakra-ui/password-input";
 import { useForm } from "react-hook-form";
 import { useSignInEmailPass, useProvider } from "@/hooks/firebase";
-import { Provider } from "@/constants/sidebar/providers";
+import { Provider } from "@/constants/utils/providers";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 
 interface FormValues {
