@@ -1,24 +1,34 @@
-import { VStack, Separator, Spacer } from "@chakra-ui/react";
+import { Stack, Separator, Spacer, type StackProps } from "@chakra-ui/react";
 import { ColorModeButton } from "@/components/chakra-ui/color-mode";
-import CustomBrushPickerPanel from "./brush-picker";
-import CustomConfigSetterPanel from "./config-setter";
-import DownloadOptionsPanel from "./download-options";
-import CustomColorPicker from "./brush-picker/color-picker";
-import User from "./user";
+import CustomBrushPickerPanel from "../utils/brush-picker";
+import CustomConfigSetterPanel from "../utils/config-setter";
+import DownloadOptionsPanel from "../utils/download-options";
+import CustomColorPicker from "../utils/brush-picker/color-picker";
+import User from "../utils/user-config";
 
 function SideBar() {
   return (
-    <VStack as="aside" maxW="2xs" gap="2rem" h="100%">
+    <Stack {...stackProps}>
       <User />
-      <Separator w="8rem" />
-      <CustomBrushPickerPanel />
+      <Separator w="8rem" hideBelow="sm" />
+      <CustomBrushPickerPanel size="xs" />
       <CustomColorPicker needInput={false} />
-      <Spacer />
-      <DownloadOptionsPanel />
+      <Spacer hideBelow="sm" />
+      <DownloadOptionsPanel size="xs" />
       <ColorModeButton rounded="full" variant="subtle" colorPalette="green" />
-      <CustomConfigSetterPanel />
-    </VStack>
+      <CustomConfigSetterPanel size="xs" />
+    </Stack>
   );
 }
+
+const stackProps: StackProps & React.RefAttributes<HTMLDivElement> = {
+  as: "aside",
+  maxW: { smDown: "100%", md: "2xs" },
+  gap: { smDown: "clamp(0.5rem, 5%, 2rem)", md: "2rem" },
+  h: { smDown: "fit-content", md: "100%" },
+  justify: "center",
+  align: "center",
+  direction: { smDown: "row", md: "column" },
+};
 
 export default SideBar;
