@@ -1,32 +1,28 @@
+import { BrushType } from "@/constants/canvas/brush-type";
+import { CanvasStrokeColor, BrushSettings } from "@/types/canvas/brush";
 import { create } from "zustand";
-import { type ColorSource } from "pixi.js";
-
-type StrokeStyle = {
-  color: string | CanvasGradient | CanvasPattern;
-  width: number;
-  cap: CanvasLineCap;
-  join: CanvasLineJoin;
-};
 
 interface BrushConfig {
-  config: StrokeStyle;
-  setConfig: (newConfig: Partial<StrokeStyle>) => void;
-  setColor: (color: ColorSource) => void;
+  brush: BrushType;
+  config: BrushSettings;
+  setConfig: (newConfig: Partial<BrushSettings>) => void;
+  setColor: (color: CanvasStrokeColor) => void;
   setWidth: (width: number) => void;
 }
 
 const useBrushConfig = create<BrushConfig>((set) => ({
+  brush: BrushType.FREE_STROKE,
   config: {
     color: "#86efac",
     width: 10,
     cap: "round",
     join: "round",
   },
-  setConfig: (newConfig: Partial<StrokeStyle>) =>
+  setConfig: (newConfig: Partial<BrushSettings>) =>
     set((state) => ({
       config: Object.assign({}, state.config, newConfig),
     })),
-  setColor: (color: ColorSource) =>
+  setColor: (color: CanvasStrokeColor) =>
     set((state) => ({
       config: Object.assign({}, state.config, { color }),
     })),
