@@ -1,20 +1,21 @@
-import { HStack, StackProps } from "@chakra-ui/react";
+import { HStack, StackProps, Spacer } from "@chakra-ui/react";
 import EraserButton from "../utils/eraser-button";
 import CustomBrushPicker from "../utils/brush-picker";
 import CustomColorPicker from "../utils/brush-picker/color-picker";
 import UndoRedoButton from "@/components/utils/undo-redo";
 
-type Args = StackProps;
+type Args = Omit<StackProps, "children">;
 
 /**
  * @description This component should be rendered when the device is tiny
  */
-function Footer(props: Args) {
+function Footer({ w = "100%", ...props }: Args) {
   return (
-    <HStack {...props}>
+    <HStack w={w} {...props}>
       <EraserButton />
       <CustomBrushPicker />
-      <CustomColorPicker />
+      <CustomColorPicker needInput={false} />
+      <Spacer />
       <UndoRedoButton />
     </HStack>
   );
