@@ -1,8 +1,16 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
 import Canvas from "@/components/canvas/vanilla-canvas";
 
-function CanvasPaint() {
+type Args = Omit<FlexProps, "children" & "ref">;
+
+function CanvasPaint({
+  as = "section",
+  w = "100%",
+  h = "100%",
+  css,
+  ...props
+}: Args) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [resizeTo, setResizeTo] = useState<DOMRect | null>(null);
 
@@ -22,14 +30,16 @@ function CanvasPaint() {
 
   return (
     <Flex
-      as="section"
-      w="100%"
-      h="100%"
+      as={as}
+      w={w}
+      h={h}
       css={{
         overflow: "hidden",
         borderRadius: "2rem",
+        ...css,
       }}
       ref={containerRef}
+      {...props}
     >
       {resizeTo && <Canvas resizeTo={resizeTo} />}
     </Flex>
