@@ -1,4 +1,3 @@
-import { Application, Renderer } from "pixi.js";
 import { create } from "zustand";
 
 interface App {
