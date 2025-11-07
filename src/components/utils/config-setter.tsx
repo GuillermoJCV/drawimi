@@ -17,8 +17,8 @@ function ConfigSetter(props: Args) {
         <IconButton
           variant="subtle"
           size="sm"
-          w="2.5rem"
-          h="2.5rem"
+          w={{ sm: "1.5rem", md: "2.5rem" }}
+          h={{ sm: "1.5rem", md: "2.5rem" }}
           aria-label="Configure the brush"
           colorPalette="green"
           rounded="full"

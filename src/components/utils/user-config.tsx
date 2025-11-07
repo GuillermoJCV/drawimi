@@ -4,14 +4,21 @@ import useUserStore from "@/stores/user-store";
 import UserToggler from "./user-config/user-toggler";
 import LoginToggler from "./user-config/login-toggler";
 
-function UserConfig() {
+type Args = Omit<Drawer.RootProps, "children">;
+
+function UserConfig({ size = "sm", ...props }: Args) {
   const [open, setOpen] = useState(false);
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {}, [user]);
 
   return (
-    <Drawer.Root open={open} onOpenChange={(e) => setOpen(e.open)} size="sm">
+    <Drawer.Root
+      open={open}
+      onOpenChange={(e) => setOpen(e.open)}
+      size="sm"
+      {...props}
+    >
       <Drawer.Trigger asChild>
         <UserToggler open={open} setOpen={setOpen} />
       </Drawer.Trigger>
