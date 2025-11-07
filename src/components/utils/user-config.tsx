@@ -4,7 +4,7 @@ import useUserStore from "@/stores/user-store";
 import UserToggler from "./user-config/user-toggler";
 import LoginToggler from "./user-config/login-toggler";
 
-function User() {
+function UserConfig() {
   const [open, setOpen] = useState(false);
   const user = useUserStore((state) => state.user);
 
@@ -36,4 +36,4 @@ function User() {
   );
 }
 
-export default User;
+export default UserConfig;
