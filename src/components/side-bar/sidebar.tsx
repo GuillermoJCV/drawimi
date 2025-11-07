@@ -8,6 +8,8 @@ import User from "../utils/user-config";
 
 function SideBar() {
   return (
+    //TODO: This component must be rendered just when the device is large
+    // So it doesn't need conditional props anymore
     <Stack {...stackProps}>
       <User />
       <Separator w="8rem" hideBelow="sm" />
