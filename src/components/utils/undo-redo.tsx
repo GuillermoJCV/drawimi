@@ -4,10 +4,10 @@ import { LuRedo, LuUndo } from "react-icons/lu";
 function UndoRedoButton() {
   return (
     <Group attached>
-      <IconButton>
+      <IconButton roundedTop="3xl" variant="subtle" colorPalette="green">
         <LuUndo />
       </IconButton>
-      <IconButton>
+      <IconButton roundedTop="3xl" variant="subtle" colorPalette="green">
         <LuRedo />
       </IconButton>
     </Group>
