@@ -1,5 +1,5 @@
-import useCanvasHandler from "@/hooks/useCanvasHandler";
-import { useRestoreBackground } from "@/hooks/useRestoreBackground";
+import useCanvasHandler from "@/hooks/canvas/useCanvasHandler";
+import { useRestoreBackground } from "@/hooks/canvas/useRestoreBackground";
 import useBrushConfig from "@/stores/brush-config-store";
 import useCanvasStore from "@/stores/canvas-store";
 import { useEffect, useRef, useState } from "react";
