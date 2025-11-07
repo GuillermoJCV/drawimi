@@ -14,10 +14,7 @@ function Canvas({ resizeTo }: Args) {
   const setCanvas = useCanvasStore((state) => state.setCanvas);
   const [ctx, setCtx] = useState<CanvasCtx | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { restoreBackground, storeBackground } = useRestoreBackground(
-    ctx,
-    canvasRef,
-  );
+  const { restoreBackground, storeBackground } = useRestoreBackground();
   const {
     onpointerdownHandler: start,
     onpointerupHandler: stop,

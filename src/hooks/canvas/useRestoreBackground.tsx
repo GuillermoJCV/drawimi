@@ -1,24 +1,24 @@
+import useCanvasStore from "@/stores/canvas-store";
+
 //TODO: Store the background on a zustand array
 let restoreImage: ImageData | null = null;
-function useRestoreBackground(
-  ctx: CanvasRenderingContext2D | null,
-  canvasRef: React.RefObject<HTMLCanvasElement | null>,
-) {
-  //Use a zustand state
+function useRestoreBackground() {
+  const canvas = useCanvasStore((state) => state.canvas);
+  const ctx = canvas?.getContext("2d");
 
   const restoreBackground = () => {
-    if (!ctx || !restoreImage || !canvasRef.current) return;
+    if (!ctx || !restoreImage || !canvas) return;
     console.log("restoring the Background");
 
-    const size = canvasRef.current.getBoundingClientRect();
+    const size = canvas.getBoundingClientRect();
     ctx.putImageData(restoreImage, size.x, size.y);
   };
 
   const storeBackground = () => {
-    if (!ctx || !canvasRef.current) return;
+    if (!ctx || !canvas) return;
     console.log("storing the Background");
 
-    const size = canvasRef.current.getBoundingClientRect();
+    const size = canvas.getBoundingClientRect();
     restoreImage = ctx.getImageData(
       size.left,
       size.top,
