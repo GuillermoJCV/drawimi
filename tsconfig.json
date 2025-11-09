@@ -20,12 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/stores/*": ["./src/stores/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@setup": ["./setup-test.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "./setup-test.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

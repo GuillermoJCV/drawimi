@@ -1,15 +1,22 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const host = process.env.TAURI_DEV_HOST;
 
-// https://vite.dev/config/
-export default defineConfig(async () => ({
+export default defineConfig({
   plugins: [react(), tsconfigPaths()],
-  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
-  //
-  // 1. prevent Vite from obscuring rust errors
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./setup-test.ts",
+    pool: "forks",
+    // server: {
+    //   deps: {
+    //     inline: ["parse5"],
+    //   },
+    // },
+  },
   clearScreen: false,
   // 2. tauri expects a fixed port, fail if that port is not available
   server: {
@@ -28,4 +35,4 @@ export default defineConfig(async () => ({
       ignored: ["**/src-tauri/**"],
     },
   },
-}));
+});
