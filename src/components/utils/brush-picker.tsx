@@ -36,7 +36,7 @@ function CustomBrushPicker(props: Args) {
             </Drawer.Header>
             <Drawer.Body>
               <VStack gap="2rem">
-                <ColorPicker />
+                <ColorPicker needInput />
                 <WidthSlider />
               </VStack>
             </Drawer.Body>

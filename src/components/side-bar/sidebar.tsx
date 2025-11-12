@@ -32,7 +32,7 @@ function SideBar({
       <User />
       <Separator w="8rem" />
       <CustomBrushPickerPanel size="xs" />
-      <CustomColorPicker needInput={false} />
+      <CustomColorPicker />
       <Spacer />
       <DownloadOptionsPanel size="xs" />
       <ColorModeButton rounded="full" variant="subtle" colorPalette="green" />
