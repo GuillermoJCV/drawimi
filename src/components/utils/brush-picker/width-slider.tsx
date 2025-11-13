@@ -13,6 +13,7 @@ function WidthSlider() {
 
   return (
     <Slider.RootProvider
+      data-testid={TestId.ROOT_PROVIDER}
       onChange={async () => setBrushWidth(widthSlider.value[0])}
       value={widthSlider}
       width="200px"
@@ -31,4 +32,8 @@ function WidthSlider() {
   );
 }
 
+enum TestId {
+  ROOT_PROVIDER = "root-provider",
+}
 export default WidthSlider;
+export { TestId };
