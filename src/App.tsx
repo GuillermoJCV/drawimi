@@ -7,7 +7,7 @@ import Footer from "@/components/footer/footer";
 
 function App() {
   return (
-    <Container as="main" w="dvw" h="dvh">
+    <Container as="main" role="app" w="dvw" h="dvh">
       <Stack {...stackProps}>
         <Header hideFrom="md" />
         <SideBar hideBelow="sm" />
