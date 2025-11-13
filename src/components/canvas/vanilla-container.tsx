@@ -1,6 +1,9 @@
 import { Flex, FlexProps } from "@chakra-ui/react";
-import { useRef, useState, useEffect } from "react";
-import Canvas from "@/components/canvas/vanilla-canvas";
+import { useRef, useState, useEffect, lazy, Suspense } from "react";
+import Loader from "@/components/utils/loader";
+//import Canvas from "@/components/canvas/vanilla-canvas";
+
+const Canvas = lazy(() => import("@/components/canvas/vanilla-canvas"));
 
 type Args = Omit<FlexProps, "children" & "ref">;
 
@@ -8,6 +11,8 @@ function CanvasPaint({
   as = "section",
   w = "100%",
   h = "100%",
+  align = "center",
+  justify = "center",
   css,
   ...props
 }: Args) {
@@ -33,6 +38,8 @@ function CanvasPaint({
       as={as}
       w={w}
       h={h}
+      align={align}
+      justify={justify}
       css={{
         overflow: "hidden",
         borderRadius: "2rem",
@@ -41,7 +48,9 @@ function CanvasPaint({
       ref={containerRef}
       {...props}
     >
-      {resizeTo && <Canvas resizeTo={resizeTo} />}
+      <Suspense fallback={<Loader />}>
+        {resizeTo && <Canvas resizeTo={resizeTo} />}
+      </Suspense>
     </Flex>
   );
 }
