@@ -1,6 +1,5 @@
 import { IconButton, IconButtonProps } from "@chakra-ui/react";
 import { BsEraserFill } from "react-icons/bs";
-
 type Args = Omit<IconButtonProps, "children">;
 
 function EraserButton({
@@ -11,6 +10,7 @@ function EraserButton({
 }: Args) {
   return (
     <IconButton
+      data-testid={TestId.ERASER_BUTTON}
       rounded={rounded}
       variant={variant}
       colorPalette={colorPalette}
@@ -21,4 +21,8 @@ function EraserButton({
   );
 }
 
+enum TestId {
+  ERASER_BUTTON = "eraser-button",
+}
 export default EraserButton;
+export { TestId };
