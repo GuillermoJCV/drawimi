@@ -3,6 +3,7 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "types": ["vitest/globals", "happy-dom"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -20,10 +21,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@setup": ["./setup-test.ts"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "./setup-test.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
