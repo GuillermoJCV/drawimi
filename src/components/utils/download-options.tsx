@@ -37,7 +37,7 @@ function DownloadOptionsPanel(props: Args) {
 
   return (
     <Drawer.Root {...props}>
-      <Drawer.Trigger asChild>
+      <Drawer.Trigger data-testid={TestId.TRIGGER} asChild>
         <IconButton
           variant="subtle"
           size="sm"
@@ -52,7 +52,7 @@ function DownloadOptionsPanel(props: Args) {
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
-        <Drawer.Positioner>
+        <Drawer.Positioner data-testid={TestId.POSITIONER}>
           <Drawer.Content>
             <form onSubmit={onSubmit}>
               <Drawer.Header>
@@ -87,8 +87,9 @@ function DownloadOptionsPanel(props: Args) {
   );
 }
 
-// const drawerProps: Drawer.RootProps = {
-//   size: { sm: "sm", md: "xs" },
-// };
-
+enum TestId {
+  TRIGGER = "downloadOptions-trigger-testid",
+  POSITIONER = "downloadOptions-positioner-testid",
+}
 export default DownloadOptionsPanel;
+export { TestId };
