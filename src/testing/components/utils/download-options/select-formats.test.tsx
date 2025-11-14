@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/vitest";
 import SelectFormats, {
   TestId,
 } from "@/components/utils/download-options/select-formats";
-import { useState } from "react";
+import React from "react";
 import { DownloadFormat } from "@/constants/utils/download-formats";
 
 describe("Custom Color Picker", () => {
@@ -13,7 +13,8 @@ describe("Custom Color Picker", () => {
 
   //TODO: learn how to mock a useState correctly
   it("renders", async () => {
-    const [_format, setFormat] = useState<DownloadFormat>("png");
+    const setFormat = vi.fn();
+    vi.spyOn(React, "useState").mockReturnValue(["", setFormat]);
     render(<SelectFormats setFormat={setFormat} />);
     const selectFormats = screen.getByTestId(TestId.ROOT);
 
