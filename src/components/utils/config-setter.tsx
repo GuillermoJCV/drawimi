@@ -13,7 +13,7 @@ type Args = Omit<Drawer.RootProps, "children">;
 function ConfigSetter(props: Args) {
   return (
     <Drawer.Root {...props}>
-      <Drawer.Trigger asChild>
+      <Drawer.Trigger data-testid={TestId.TRIGGER} asChild>
         <IconButton
           variant="subtle"
           size="sm"
@@ -28,7 +28,7 @@ function ConfigSetter(props: Args) {
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
-        <Drawer.Positioner>
+        <Drawer.Positioner data-testid={TestId.POSITIONER}>
           <Drawer.Content>
             <Drawer.Header>
               <Drawer.Title>Drawer Title</Drawer.Title>
@@ -52,4 +52,9 @@ function ConfigSetter(props: Args) {
   );
 }
 
+enum TestId {
+  TRIGGER = "config-setter-drawer-trigger-testid",
+  POSITIONER = "config-setter-drawer-positioner-testid",
+}
 export default ConfigSetter;
+export { TestId };

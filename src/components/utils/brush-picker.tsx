@@ -13,8 +13,8 @@ type Args = Omit<Drawer.RootProps, "children">;
 
 function CustomBrushPicker(props: Args) {
   return (
-    <Drawer.Root data-testid={TestId.ROOT} {...props}>
-      <Drawer.Trigger asChild>
+    <Drawer.Root {...props}>
+      <Drawer.Trigger data-testid={TestId.TRIGGER} asChild>
         <IconButton
           variant="subtle"
           size="sm"
@@ -29,7 +29,7 @@ function CustomBrushPicker(props: Args) {
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
-        <Drawer.Positioner>
+        <Drawer.Positioner data-testid={TestId.POSITIONER}>
           <Drawer.Content>
             <Drawer.Header>
               <Drawer.Title>Brush Config</Drawer.Title>
@@ -52,7 +52,8 @@ function CustomBrushPicker(props: Args) {
 }
 
 enum TestId {
-  ROOT = "brush-picker-drawer-root-testid",
+  TRIGGER = "brush-picker-drawer-trigger-testid",
+  POSITIONER = "brush-picker-drawer-positioner-testid",
 }
 export default CustomBrushPicker;
 export { TestId };
