@@ -6,7 +6,7 @@ import LoggingToggler, {
   TestId,
 } from "@/components/utils/user-config/login-toggler";
 
-describe("Custom Color Picker", () => {
+describe("Logging Toggler", () => {
   beforeEach(cleanup);
 
   //TODO: learn how to mock a useState correctly

@@ -6,9 +6,8 @@ import SelectFormats, {
   TestId,
 } from "@/components/utils/download-options/select-formats";
 import React from "react";
-import { DownloadFormat } from "@/constants/utils/download-formats";
 
-describe("Custom Color Picker", () => {
+describe("Select Formats", () => {
   beforeEach(cleanup);
 
   //TODO: learn how to mock a useState correctly

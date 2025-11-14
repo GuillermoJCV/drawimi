@@ -4,7 +4,7 @@ import { render } from "@/testing/render";
 import "@testing-library/jest-dom/vitest";
 import SignIn, { TestId } from "@/components/utils/user-config/sign-in";
 
-describe("Custom Color Picker", () => {
+describe("Sign In", () => {
   beforeEach(cleanup);
 
   it("renders the form", () => {

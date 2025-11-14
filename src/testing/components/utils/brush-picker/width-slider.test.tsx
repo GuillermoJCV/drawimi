@@ -6,7 +6,7 @@ import WidthSlider, {
   TestId,
 } from "@/components/utils/brush-picker/width-slider";
 
-describe("Custom Color Picker", () => {
+describe("Width Slider", () => {
   beforeEach(cleanup);
 
   it("renders", async () => {

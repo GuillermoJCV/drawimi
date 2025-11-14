@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/vitest";
 import DownloadOptions, { TestId } from "@/components/utils/download-options";
 import userEvent from "@testing-library/user-event";
 
-describe("Brush Picker", () => {
+describe("Download Options", () => {
   beforeEach(cleanup);
 
   it("renders trigger", async () => {
