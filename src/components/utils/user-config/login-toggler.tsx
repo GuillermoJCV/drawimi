@@ -6,8 +6,9 @@ import { useState } from "react";
 function LoginToggler() {
   const [isSignIn, setIsSignIn] = useState(false);
   return (
-    <Stack>
+    <Stack data-testid={TestId.STACK}>
       <Button
+        data-testid={TestId.BUTTON}
         colorPalette="green"
         variant="ghost"
         size="xs"
@@ -19,4 +20,10 @@ function LoginToggler() {
     </Stack>
   );
 }
+
+enum TestId {
+  STACK = "login-toggler-stack-id",
+  BUTTON = "login-toggler-button-id",
+}
 export default LoginToggler;
+export { TestId };
