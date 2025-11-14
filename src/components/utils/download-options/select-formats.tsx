@@ -11,7 +11,13 @@ type Args = {
 
 function SelectFormats({ setFormat }: Args) {
   return (
-    <NativeSelect.Root size="xs" variant="plain" width="auto" me="-1">
+    <NativeSelect.Root
+      data-testid={TestId.ROOT}
+      size="xs"
+      variant="plain"
+      width="auto"
+      me="-1"
+    >
       <NativeSelect.Field defaultValue=".com" fontSize="sm">
         <For each={downloadFormats}>
           {(item: DownloadFormat, index: number) => (
@@ -30,4 +36,8 @@ function SelectFormats({ setFormat }: Args) {
   );
 }
 
+enum TestId {
+  ROOT = "native-select-root",
+}
 export default SelectFormats;
+export { TestId };
