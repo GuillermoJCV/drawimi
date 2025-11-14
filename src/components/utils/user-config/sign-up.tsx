@@ -21,15 +21,18 @@ function SignUp() {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form data-testid={TestId.FORM} onSubmit={onSubmit}>
       <Stack gap="4" align="center" colorPalette="green">
-        <Field.Root invalid={!!errors.email}>
+        <Field.Root data-testid={TestId.FIELD_EMAIL} invalid={!!errors.email}>
           <Field.Label>Username or Email</Field.Label>
           <Input {...register("email")} />
           <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
         </Field.Root>
 
-        <Field.Root invalid={!!errors.password}>
+        <Field.Root
+          data-testid={TestId.FIELD_PASSWORD}
+          invalid={!!errors.password}
+        >
           <Field.Label>Password</Field.Label>
           <PasswordInput {...register("password")} />
           <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
@@ -41,4 +44,10 @@ function SignUp() {
   );
 }
 
+enum TestId {
+  FORM = "form-sign-up-test-id",
+  FIELD_EMAIL = "form-sign-up-field-email-test-id",
+  FIELD_PASSWORD = "form-sign-up-field-password-test-id",
+}
 export default SignUp;
+export { TestId };
