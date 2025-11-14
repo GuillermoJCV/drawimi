@@ -2,7 +2,7 @@ import { ProgressCircle } from "@chakra-ui/react";
 
 function Loader() {
   return (
-    <ProgressCircle.Root value={null} size="md">
+    <ProgressCircle.Root data-testid={TestId.ROOT} value={null} size="md">
       <ProgressCircle.Circle>
         <ProgressCircle.Track />
         <ProgressCircle.Range />
@@ -11,4 +11,8 @@ function Loader() {
   );
 }
 
+enum TestId {
+  ROOT = "loader-progressCircle-testid",
+}
 export default Loader;
+export { TestId };
