@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { FirebaseContext } from "@/components/context/firebase-context";
 import useUserStore from "@/stores/user-store";
-import { Provider } from "@/constants/sidebar/providers";
+import { Provider } from "@/constants/utils/auth-providers";
 import { useToasterUpdate } from "./toaster";
 import { ToasterStatus } from "@/constants/toaster/status";
 
