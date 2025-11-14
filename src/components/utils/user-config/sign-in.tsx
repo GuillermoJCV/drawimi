@@ -69,9 +69,9 @@ function SignIn() {
 }
 
 enum TestId {
-  FORM = "form-test-id",
-  FIELD_EMAIL = "form-field-email-test-id",
-  FIELD_PASSWORD = "form-field-password-test-id",
+  FORM = "form-sign-in-test-id",
+  FIELD_EMAIL = "form-sign-in-field-email-test-id",
+  FIELD_PASSWORD = "form-sign-in-field-password-test-id",
 }
 export default SignIn;
 export { TestId };
