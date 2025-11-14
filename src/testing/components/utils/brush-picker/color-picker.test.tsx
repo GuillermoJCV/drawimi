@@ -1,10 +1,5 @@
-import {
-  screen,
-  cleanup,
-  queryByRole,
-  fireEvent,
-} from "@testing-library/react";
-import { expect, vi } from "vitest";
+import { screen, cleanup } from "@testing-library/react";
+import { expect } from "vitest";
 import { render } from "@/testing/render";
 import "@testing-library/jest-dom/vitest";
 import CustomColorPicker, {
@@ -12,7 +7,6 @@ import CustomColorPicker, {
 } from "@/components/utils/brush-picker/color-picker";
 import useBrushConfig from "@/stores/brush-config-store";
 import userEvent from "@testing-library/user-event";
-import { target, value } from "happy-dom/lib/PropertySymbol";
 
 describe("Custom Color Picker", () => {
   beforeEach(cleanup);
