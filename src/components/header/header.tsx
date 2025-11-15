@@ -5,12 +5,9 @@ import DownloadOptionsPanel from "../utils/download-options";
 
 type Args = Omit<StackProps, "children">;
 
-/**
- * @description This component should be rendered when the device is tiny
- */
 function Header({ w = "100%", align = "start", ...props }: Args) {
   return (
-    <HStack w={w} align={align} {...props}>
+    <HStack data-testid={TestId.HEADER} w={w} align={align} {...props}>
       <UserConfig />
       <Spacer />
       <DownloadOptionsPanel />
@@ -19,4 +16,8 @@ function Header({ w = "100%", align = "start", ...props }: Args) {
   );
 }
 
+enum TestId {
+  HEADER = "header-stack-testid",
+}
 export default Header;
+export { TestId };
