@@ -8,7 +8,7 @@ export default defineConfig((configEnv) =>
       test: {
         environment: "happy-dom",
         globals: true,
-        setupFiles: ["./__mooks__/window.ts", "./__mooks__/zustand.ts"],
+        setupFiles: ["./__mocks__/window.ts", "./__mocks__/zustand.ts"],
       },
     }),
   ),
