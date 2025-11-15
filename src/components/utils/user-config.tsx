@@ -1,4 +1,4 @@
-import { Drawer, CloseButton, Portal } from "@chakra-ui/react";
+import { Drawer, CloseButton, Portal, Button } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import useUserStore from "@/stores/user-store";
 import UserToggler from "./user-config/user-toggler";
@@ -7,24 +7,27 @@ import LoginToggler from "./user-config/login-toggler";
 type Args = Omit<Drawer.RootProps, "children">;
 
 function UserConfig({ size = "sm", ...props }: Args) {
-  const [open, setOpen] = useState(false);
+  //const [open, setOpen] = useState(false);
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {}, [user]);
 
   return (
-    <Drawer.Root
-      open={open}
-      onOpenChange={(e) => setOpen(e.open)}
-      size="sm"
-      {...props}
-    >
-      <Drawer.Trigger asChild>
-        <UserToggler open={open} setOpen={setOpen} />
+    <Drawer.Root size={size} {...props}>
+      <Drawer.Trigger data-testid={TestId.TRIGGER} asChild>
+        <Button
+          rounded="full"
+          w="3rem"
+          h="3rem"
+          variant="subtle"
+          colorPalette="green"
+        >
+          <UserToggler />
+        </Button>
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
-        <Drawer.Positioner>
+        <Drawer.Positioner data-testid={TestId.POSITIONER}>
           <Drawer.Content>
             <Drawer.Header>
               <Drawer.Title>{user ? "User Info" : "Log in"}</Drawer.Title>
@@ -34,7 +37,7 @@ function UserConfig({ size = "sm", ...props }: Args) {
             </Drawer.Body>
             <Drawer.Footer></Drawer.Footer>
             <Drawer.CloseTrigger asChild>
-              <CloseButton onClick={() => setOpen(!open)} size="sm" />
+              <CloseButton size="sm" />
             </Drawer.CloseTrigger>
           </Drawer.Content>
         </Drawer.Positioner>
@@ -43,4 +46,9 @@ function UserConfig({ size = "sm", ...props }: Args) {
   );
 }
 
+enum TestId {
+  TRIGGER = "userConfig-trigger-testid",
+  POSITIONER = "userConfig-positioner-testid",
+}
 export default UserConfig;
+export { TestId };
