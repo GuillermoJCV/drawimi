@@ -20,6 +20,7 @@ function SideBar({
 }: Args) {
   return (
     <Stack
+      data-testid={TestId.ASIDE_BAR}
       as={as}
       maxW={maxW}
       gap={gap}
@@ -41,4 +42,8 @@ function SideBar({
   );
 }
 
+enum TestId {
+  ASIDE_BAR = "sidebar-aside-testid",
+}
 export default SideBar;
+export { TestId };
