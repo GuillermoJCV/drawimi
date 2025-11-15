@@ -65,7 +65,7 @@ function useCreateEmailPass() {
   const user = useUserStore((state) => state.user);
   const { auth } = useContext(FirebaseContext);
 
-  return useCallback(async (email: string, password: string) => {
+  const createUser = useCallback(async (email: string, password: string) => {
     toasterUpdate({
       title: "Signing in...",
       description: "Please wait",
@@ -94,6 +94,8 @@ function useCreateEmailPass() {
         });
       });
   }, []);
+
+  return createUser;
 }
 
 function useSignInEmailPass() {

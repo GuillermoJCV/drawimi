@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext } from "react";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { getAuth, type Auth } from "firebase/auth";
+import { connectAuthEmulator, getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCB42qRE98FUjcDVYczfANRhRwIEnuSawE",
@@ -11,6 +11,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+if (process.env.VITEST) connectAuthEmulator(auth, "http://127.0.0.1:9099");
 
 type FirebaseContextValues = {
   app: FirebaseApp;
