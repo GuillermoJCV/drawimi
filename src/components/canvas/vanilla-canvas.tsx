@@ -50,6 +50,7 @@ function Canvas({ resizeTo }: Args) {
   // Canvas Element
   return (
     <canvas
+      data-testid={TestId.CANVAS}
       ref={canvasRef}
       width={resizeTo.width}
       height={resizeTo.height}
@@ -58,6 +59,10 @@ function Canvas({ resizeTo }: Args) {
   );
 }
 
+enum TestId {
+  CANVAS = "canvas-canvas-testid",
+}
 export default Canvas;
+export { TestId };
 
 type CanvasCtx = CanvasRenderingContext2D;

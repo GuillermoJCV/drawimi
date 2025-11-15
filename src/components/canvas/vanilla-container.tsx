@@ -35,6 +35,7 @@ function CanvasPaint({
 
   return (
     <Flex
+      data-testid={TestId.CONTAINER}
       as={as}
       w={w}
       h={h}
@@ -55,4 +56,8 @@ function CanvasPaint({
   );
 }
 
+enum TestId {
+  CONTAINER = "vanillaContainer-flex-testid",
+}
 export default CanvasPaint;
+export { TestId };
