@@ -1,5 +1,5 @@
 import { Drawer, CloseButton, Portal, Button } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import useUserStore from "@/stores/user-store";
 import UserToggler from "./user-config/user-toggler";
 import LoginToggler from "./user-config/login-toggler";
@@ -7,7 +7,6 @@ import LoginToggler from "./user-config/login-toggler";
 type Args = Omit<Drawer.RootProps, "children">;
 
 function UserConfig({ size = "sm", ...props }: Args) {
-  //const [open, setOpen] = useState(false);
   const user = useUserStore((state) => state.user);
 
   useEffect(() => {}, [user]);
