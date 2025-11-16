@@ -1,6 +1,5 @@
-import { cleanup, renderHook, screen } from "@testing-library/react";
+import { cleanup, renderHook } from "@testing-library/react";
 import { expect } from "vitest";
-import { render } from "@/testing/render";
 import "@testing-library/jest-dom/vitest";
 import { useCreateEmailPass, useSignInEmailPass } from "@/hooks/firebase";
 import useUserStore from "@/stores/user-store";
