@@ -14,12 +14,12 @@ export const toaster = createToaster({
   pauseOnPageIdle: true,
 });
 
-export const Toaster = () => {
+const Toaster = () => {
   return (
     <Portal>
       <ChakraToaster toaster={toaster} insetInline={{ mdDown: "4" }}>
         {(toast) => (
-          <Toast.Root width={{ md: "sm" }}>
+          <Toast.Root data-testid={TestId.CONTAINER} width={{ md: "sm" }}>
             {toast.type === "loading" ? (
               <Spinner
                 data-testid={TestId.SPINNER}
@@ -52,7 +52,8 @@ export const Toaster = () => {
 };
 
 enum TestId {
+  CONTAINER = "toaster-container-testid",
   SPINNER = "toaster-spinner-testid",
   TOASTER = "toaster-toaster-testid",
 }
-export { TestId };
+export { Toaster, TestId };
