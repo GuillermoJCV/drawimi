@@ -11,7 +11,8 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-if (process.env.VITEST) connectAuthEmulator(auth, "http://127.0.0.1:9099");
+import.meta.env.MODE == "test" &&
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
 
 type FirebaseContextValues = {
   app: FirebaseApp;
