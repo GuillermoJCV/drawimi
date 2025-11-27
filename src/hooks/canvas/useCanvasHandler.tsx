@@ -1,11 +1,13 @@
 import { useCallback } from "react";
 import useBrushConfig from "@/stores/brush-config-store";
+import { useRestoreBackground } from "./useRestoreBackground";
 
 let isDrawing = false;
 function useCanvasHandler(
   ctx: CanvasRenderingContext2D | null,
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
 ) {
+  const { storeBackground } = useRestoreBackground();
   const brushConfig = useBrushConfig((state) => state.config);
 
   /**
@@ -30,10 +32,17 @@ function useCanvasHandler(
    * @param {PointerEvent} e - Get the pointer event
    */
   const onpointerupHandler = useCallback(
-    (_: PointerEvent) => {
+    (e: PointerEvent) => {
+      e.type === "pointerup" && storeBackground();
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
       isDrawing = false;
+
+      if (e.type === "pointerup") {
+        console.log("\nPOINTER UP");
+        console.log(`x: ${e.clientX} | y: ${e.clientY}`);
+        console.log("\nPOINTER UP");
+      }
     },
     [canvasRef.current, ctx],
   );
