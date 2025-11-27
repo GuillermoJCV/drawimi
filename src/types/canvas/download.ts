@@ -1,4 +1,4 @@
-import { DownloadFormat } from "@/constants/sidebar/download-formats";
+import { DownloadFormat } from "@/constants/utils/download-formats";
 
 type DownloadOptions = {
   filename: string;
