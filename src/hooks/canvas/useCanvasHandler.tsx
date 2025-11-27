@@ -23,6 +23,7 @@ function useCanvasHandler(
       ctx.beginPath();
       ctx.moveTo(e.clientX - DOMRect.x, e.clientY - DOMRect.y);
       e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
     },
     [canvasRef.current, ctx],
   );
@@ -36,13 +37,9 @@ function useCanvasHandler(
       e.type === "pointerup" && storeBackground();
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
+      canvas.releasePointerCapture(e.pointerId);
       isDrawing = false;
-
-      if (e.type === "pointerup") {
-        console.log("\nPOINTER UP");
-        console.log(`x: ${e.clientX} | y: ${e.clientY}`);
-        console.log("\nPOINTER UP");
-      }
+      e.preventDefault();
     },
     [canvasRef.current, ctx],
   );
@@ -64,6 +61,7 @@ function useCanvasHandler(
       ctx.lineCap = brushConfig.cap;
       ctx.lineJoin = brushConfig.join;
       ctx.stroke();
+      e.preventDefault();
     },
     [canvasRef.current, ctx, brushConfig],
   );

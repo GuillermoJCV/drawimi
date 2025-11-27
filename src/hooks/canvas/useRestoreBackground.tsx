@@ -42,10 +42,6 @@ function useRestoreBackground() {
         currentCanvas.width,
         currentCanvas.height,
       );
-      console.log("\nSTORE IMAGE");
-      console.log(size);
-      console.log(currentImage);
-      console.log("\nSTORE IMAGE");
       if (!args?.isInitialBackground) push(currentImage);
       else storeFirstBackground(currentImage);
     },
