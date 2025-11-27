@@ -1,11 +1,15 @@
+import useUndoRedo from "@/hooks/useUndoRedo";
 import { Group, IconButton } from "@chakra-ui/react";
 import { LuRedo, LuUndo } from "react-icons/lu";
 
 function UndoRedoButton() {
+  const { undo, redo } = useUndoRedo();
+
   return (
     <Group attached>
       <IconButton
         data-testid={TestId.UNDO_BUTTON}
+        onClick={() => undo()}
         roundedTop="3xl"
         variant="subtle"
         colorPalette="green"
@@ -14,6 +18,7 @@ function UndoRedoButton() {
       </IconButton>
       <IconButton
         data-testid={TestId.REDO_BUTTON}
+        onClick={() => redo()}
         roundedTop="3xl"
         variant="subtle"
         colorPalette="green"
