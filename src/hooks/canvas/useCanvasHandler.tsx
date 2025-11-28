@@ -3,6 +3,7 @@ import useBrushConfig from "@/stores/brush-config-store";
 import { useRestoreBackground } from "./useRestoreBackground";
 
 let isDrawing = false;
+let currentPointerId: number = 0;
 function useCanvasHandler(
   ctx: CanvasRenderingContext2D | null,
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -16,13 +17,24 @@ function useCanvasHandler(
    */
   const onpointerdownHandler = useCallback(
     (e: PointerEvent) => {
+      //Check canvas and context exists
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
+
+      //Prevent default behaviors
+      e.preventDefault();
+      e.stopPropagation();
+
+      //Set drawing as true
       isDrawing = true;
+      
+      //Starts the path
       const DOMRect = canvas.getBoundingClientRect();
       ctx.beginPath();
       ctx.moveTo(e.clientX - DOMRect.x, e.clientY - DOMRect.y);
-      e.preventDefault();
+
+      //Captures the event
+      currentPointerId = e.pointerId;
       canvas.setPointerCapture(e.pointerId);
     },
     [canvasRef.current, ctx],
@@ -37,7 +49,7 @@ function useCanvasHandler(
       e.type === "pointerup" && storeBackground();
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
-      canvas.releasePointerCapture(e.pointerId);
+      canvas.releasePointerCapture(currentPointerId);
       isDrawing = false;
       e.preventDefault();
     },
