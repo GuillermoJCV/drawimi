@@ -63,7 +63,7 @@ function Canvas({ resizeTo }: Args) {
       ref={canvasRef}
       width={resizeTo.width}
       height={resizeTo.height}
-      style={{ backgroundColor: "white" }}
+      style={{ backgroundColor: "white", touchAction: "none" }}
     ></canvas>
   );
 }
