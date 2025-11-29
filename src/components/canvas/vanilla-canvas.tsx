@@ -15,7 +15,7 @@ function Canvas({ resizeTo }: Args) {
   const setCanvas = useCanvasStore((state) => state.setCanvas);
   const [ctx, setCtx] = useState<CanvasCtx | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { restoreBackground, storeBackground } = useRestoreBackground();
+  const { storeBackground } = useRestoreBackground();
   const {
     onpointerdownHandler: start,
     onpointerupHandler: stop,
@@ -29,7 +29,6 @@ function Canvas({ resizeTo }: Args) {
       setCanvas(canvas);
       const context = canvas.getContext("2d");
       context && setCtx(context);
-      restoreBackground();
 
       canvas.addEventListener("pointerdown", start);
       canvas.addEventListener("pointerup", stop);
