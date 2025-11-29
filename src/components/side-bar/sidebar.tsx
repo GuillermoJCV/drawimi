@@ -10,24 +10,23 @@ type Args = Omit<StackProps & React.RefAttributes<HTMLDivElement>, "children">;
 
 function SideBar({
   as = "aside",
-  maxW = { smDown: "100%", md: "2xs" },
-  gap = { smDown: "clamp(0.5rem, 5%, 2rem)", md: "2rem" },
-  h = { smDown: "fit-content", md: "100%" },
+  maxW = { sm: "sm", md: "2xs" },
+  gap = { sm: "0.5rem", md: "2rem" },
+  h = "100%",
   justify = "center",
   align = "center",
-  direction = { smDown: "row", md: "column" },
   ...props
 }: Args) {
   return (
     <Stack
       data-testid={TestId.ASIDE_BAR}
+      paddingBlock="1rem"
       as={as}
       maxW={maxW}
       gap={gap}
       h={h}
       justify={justify}
       align={align}
-      direction={direction}
       {...props}
     >
       <User />

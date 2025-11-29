@@ -1,0 +1,17 @@
+/* Use CSS BEM pattern for this file*/
+
+/*ChakraUI gives */
+@media (orientation: landscape) {
+    .header {
+        display: none !important;
+    }
+    .footer {
+        display: none !important;
+    }
+}
+
+@media (orientation: portrait) {
+    .sidebar {
+        display: none !important;
+    }
+}
