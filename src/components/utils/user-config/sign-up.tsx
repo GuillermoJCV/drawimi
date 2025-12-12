@@ -1,7 +1,7 @@
 import { Button, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/chakra-ui/password-input";
 import { useForm } from "react-hook-form";
-import { useCreateEmailPass } from "@/hooks/firebase";
+import { useCreateEmailPass } from "@/hooks/firebase/auth/firebase";
 
 interface FormValues {
   email: string;

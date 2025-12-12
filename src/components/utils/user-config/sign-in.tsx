@@ -1,7 +1,10 @@
 import { Button, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/chakra-ui/password-input";
 import { useForm } from "react-hook-form";
-import { useSignInEmailPass, useProvider } from "@/hooks/firebase";
+import {
+  useSignInEmailPass,
+  useProvider,
+} from "@/hooks/firebase/auth/firebase";
 import { Provider } from "@/constants/utils/auth-providers";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 
