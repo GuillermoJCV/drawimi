@@ -31,7 +31,7 @@ class UsersStore implements UserManagerImpl {
     //TODO: Agregar caché
     const users_ref = this._usersRef;
 
-    const docRef = doc(this._db, this._collectionId)
+    //const docRef = doc(this._db, this._collectionId)
 
     const userQuery = query(users_ref, where("userId", "==", id)).withConverter(
       userConverter,
