@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import useBrushConfig from "@/stores/brush-config-store";
 import { useRestoreBackground } from "./useRestoreBackground";
+import { CANVAS_CONFIG } from "@/components/canvas/canvas-config";
 
 let isDrawing = false;
 let currentPointerId: number = 0;
@@ -27,11 +28,14 @@ function useCanvasHandler(
 
       //Set drawing as true
       isDrawing = true;
-      
+
       //Starts the path
       const DOMRect = canvas.getBoundingClientRect();
       ctx.beginPath();
-      ctx.moveTo(e.clientX - DOMRect.x, e.clientY - DOMRect.y);
+      ctx.moveTo(
+        (e.clientX - DOMRect.x) * CANVAS_CONFIG.scale,
+        (e.clientY - DOMRect.y) * CANVAS_CONFIG.scale,
+      );
 
       //Captures the event
       currentPointerId = e.pointerId;
@@ -67,9 +71,12 @@ function useCanvasHandler(
       if (!isDrawing) return;
       const DOMRect = canvas.getBoundingClientRect();
 
-      ctx.lineTo(e.clientX - DOMRect.x, e.clientY - DOMRect.y);
+      ctx.lineTo(
+        (e.clientX - DOMRect.x) * CANVAS_CONFIG.scale,
+        (e.clientY - DOMRect.y) * CANVAS_CONFIG.scale,
+      );
       ctx.strokeStyle = brushConfig.color;
-      ctx.lineWidth = brushConfig.width;
+      ctx.lineWidth = brushConfig.width * CANVAS_CONFIG.scale;
       ctx.lineCap = brushConfig.cap;
       ctx.lineJoin = brushConfig.join;
       ctx.stroke();

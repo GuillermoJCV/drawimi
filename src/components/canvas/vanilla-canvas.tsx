@@ -3,13 +3,15 @@ import { useRestoreBackground } from "@/hooks/canvas/useRestoreBackground";
 import useBrushConfig from "@/stores/brush-config-store";
 import useCanvasStore from "@/stores/canvas-store";
 import useBackgroundStore from "@/stores/storeBackgrounds";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { CANVAS_CONFIG } from "./canvas-config";
 
 interface Args {
   resizeTo: DOMRect;
 }
 
 function Canvas({ resizeTo }: Args) {
+  const firstRendering = useRef(false);
   const brushConfig = useBrushConfig((state) => state.config);
   const getImage = useBackgroundStore((state) => state.getImage);
   const setCanvas = useCanvasStore((state) => state.setCanvas);
@@ -22,13 +24,43 @@ function Canvas({ resizeTo }: Args) {
     onpointermoveHandler: draw,
   } = useCanvasHandler(ctx, canvasRef);
 
+  const getDevicePixelRatio = useCallback(() => {
+    return window.devicePixelRatio || 1;
+  }, []);
+
+  const resizeCanvas = () => {
+    if (firstRendering.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const dpr = getDevicePixelRatio();
+    const width = resizeTo.width;
+    const height = resizeTo.height;
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    canvas.width = Math.floor(width * dpr * CANVAS_CONFIG.scale);
+    canvas.height = Math.floor(height * dpr * CANVAS_CONFIG.scale);
+
+    const context = canvas.getContext("2d");
+    if (context) {
+      context.scale(dpr, dpr);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+      setCtx(context);
+      firstRendering.current = true;
+    }
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
     if (canvas) {
       setCanvas(canvas);
       const context = canvas.getContext("2d");
-      context && setCtx(context);
+      setCtx(context);
+      resizeCanvas();
 
       canvas.addEventListener("pointerdown", start);
       canvas.addEventListener("pointerup", stop);
