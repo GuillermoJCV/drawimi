@@ -1,7 +1,10 @@
 import { cleanup, renderHook } from "@testing-library/react";
 import { expect } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import { useCreateEmailPass, useSignInEmailPass } from "@/hooks/firebase";
+import {
+  useCreateEmailPass,
+  useSignInEmailPass,
+} from "@/hooks/firebase/auth/firebase";
 import useUserStore from "@/stores/user-store";
 
 describe("Firebase Hooks", async () => {
