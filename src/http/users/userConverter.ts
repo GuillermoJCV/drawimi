@@ -1,25 +1,25 @@
 import { DocumentData, FirestoreDataConverter } from "firebase/firestore";
-import { UserType } from "./userImpl";
+import { SharedUser, UserType } from "./userImpl";
 
 class User implements UserType {
   constructor(
     userId: string,
     email: string,
     isPremium: boolean,
-    sharedUserEmails: string[],
+    sharedUsers: SharedUser[],
     jwtTokenCloudflare: string,
   ) {
     this.userId = userId;
     this.email = email;
     this.isPremium = isPremium;
-    this.sharedUserEmails = sharedUserEmails;
+    this.sharedUsers = sharedUsers;
     this.jwtTokenCloudflare = jwtTokenCloudflare;
   }
 
   userId: string;
   email: string;
   isPremium: boolean;
-  sharedUserEmails: string[];
+  sharedUsers: SharedUser[];
   jwtTokenCloudflare: string;
 }
 
@@ -29,7 +29,7 @@ const userConverter: FirestoreDataConverter<User, DocumentData> = {
       userId: user.userId,
       email: user.email,
       isPremium: user.isPremium,
-      sharedUsersEmails: user.sharedUserEmails,
+      sharedUsersEmails: user.sharedUsers,
       jwtTokenCloudflare: user.jwtTokenCloudflare,
     };
   },
@@ -39,7 +39,7 @@ const userConverter: FirestoreDataConverter<User, DocumentData> = {
       data.userId,
       data.email,
       data.isPremium,
-      data.sharedUserEmails,
+      data.sharedUsers,
       data.jwtTokenCloudflare,
     );
   },

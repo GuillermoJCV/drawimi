@@ -6,6 +6,7 @@ import {
 
 //I write this like that because the id might change over the time
 type UserId = string;
+type DrawId = string;
 
 interface UserManagerImpl {
   _collectionId: string;
@@ -13,14 +14,21 @@ interface UserManagerImpl {
   _usersRef: CollectionReference<DocumentData, DocumentData>;
   createUser: (user: UserType) => Promise<void>;
   findUserById: (id: UserId) => Promise<UserType | null>;
+  findUserByEmail: (email: string) => Promise<UserType | null>;
 }
+
+type SharedUser = {
+  sharedUserId: string;
+  email: string;
+  drawIds: DrawId;
+};
 
 interface UserType {
   userId: UserId;
   email: string;
   isPremium: boolean;
-  sharedUserEmails: string[];
+  sharedUsers: SharedUser[];
   jwtTokenCloudflare: string;
 }
 
-export type { UserManagerImpl, UserId, UserType };
+export type { UserManagerImpl, UserId, SharedUser, UserType };

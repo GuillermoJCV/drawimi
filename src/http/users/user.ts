@@ -23,15 +23,32 @@ class UsersStore implements UserManagerImpl {
   async createUser(user: UserType) {
     const db = this._db;
     const colId = this._collectionId;
+
     await setDoc(doc(db, colId), user);
   }
 
   async findUserById(id: UserId) {
     //TODO: Agregar caché
     const users_ref = this._usersRef;
+
+    const docRef = doc(this._db, this._collectionId)
+
     const userQuery = query(users_ref, where("userId", "==", id)).withConverter(
       userConverter,
     );
+
+    const usersSnapshot = await getDocs(userQuery);
+
+    if (usersSnapshot.empty) return null;
+    return usersSnapshot.docs[0].data();
+  }
+
+  async findUserByEmail(email: string) {
+    const users_ref = this._usersRef;
+    const userQuery = query(
+      users_ref,
+      where("email", "==", email),
+    ).withConverter(userConverter);
 
     const usersSnapshot = await getDocs(userQuery);
 
